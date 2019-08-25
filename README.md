@@ -1,6 +1,6 @@
-# bones
+# Bones
 
-Let&#x27;s give them a helping hand while we are still human.
+Let&#x27;s give them a helping hand while we are still human.  <img src = "https://github.com/DhruvamSharma/Bones/blob/meat/assets/cute_dog_home_page.png">
 
 ## Getting Started
 
