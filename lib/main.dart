@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:bones/bloc.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
       ),
-      home: MyHomePage(title: 'Bones'),
+      home: MyHomePage(title: '',)
     );
   }
 }
@@ -44,6 +49,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  String _filePath;
+
+  void getFilePath() async {
+    try {
+      _filePath = await FilePicker.getFilePath(type: FileType.IMAGE);
+      setState(() {});
+    } on PlatformException catch (_) {
+      print("Error while picking the file: " + _.toString());
+    }
+  }
 
   final headlineStyle = TextStyle(
     fontSize: 32,
@@ -78,6 +94,25 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
+
+          Center(
+            child: MaterialButton(
+              child: Text('Find Image'),
+              onPressed: () {getFilePath();},
+            ),
+          ),
+          Center(child: Text(_filePath==null?'empty': _filePath)),
+//          StreamBuilder<String>(
+//            stream: classifierBloc.classifierStream,
+//            builder: (context, _) {
+//              if (_.connectionState == ConnectionState.waiting) {
+//                return Center(child: CircularProgressIndicator());
+//              } else {
+//                return Text(_.data);
+//              }
+//            },
+//          ),
+          Center(child: _filePath == null? Container():Image.file(File.fromUri(Uri.parse(_filePath)))),
           Spacer(),
           Image.asset('assets/cute_dog_home_page.png',
             alignment: Alignment.bottomRight,
@@ -87,6 +122,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    classifierBloc.fetchDogData();
   }
 
 }
