@@ -1,11 +1,14 @@
-import 'dart:io';
 
 import 'package:bones/bloc.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
+
+FirebaseAnalytics analytics = FirebaseAnalytics();
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,6 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
       theme: ThemeData.light(
         // This is the theme of your application.
         //
@@ -55,7 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void getFilePath() async {
     try {
       _filePath = await FilePicker.getFilePath(type: FileType.IMAGE);
-      setState(() {});
+      if (_filePath != null) {
+        setState(() {});
+      }
     } on PlatformException catch (_) {
       print("Error while picking the file: " + _.toString());
     }
@@ -99,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: MaterialButton(
               child: Text('Find Image'),
               onPressed: () {getFilePath();},
+              color: Colors.amber,
             ),
           ),
           Center(child: Text(_filePath==null?'empty': _filePath)),
@@ -112,7 +121,15 @@ class _MyHomePageState extends State<MyHomePage> {
 //              }
 //            },
 //          ),
-          Center(child: _filePath == null? Container():Image.file(File.fromUri(Uri.parse(_filePath)))),
+//          Center(child: _filePath == null? Container():Image.file(File.fromUri(Uri.parse(_filePath)))),
+          MaterialButton(
+            onPressed: () {
+              print('here');
+              classifierBloc.uploadFileToServer(_filePath);
+              },
+            child: Text("upload"),
+            color: Colors.amber,
+          ),
           Spacer(),
           Image.asset('assets/cute_dog_home_page.png',
             alignment: Alignment.bottomRight,

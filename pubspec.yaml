@@ -29,6 +29,10 @@ dependencies:
   http:
   rxdart:
   file_picker:
+  firebase_core:
+  firebase_analytics: ^5.0.1
+  firebase_storage:
+
 
 dev_dependencies:
   flutter_test:

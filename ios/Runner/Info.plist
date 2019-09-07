@@ -43,5 +43,18 @@
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Explain why your app uses photo library</string>
+    <!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+    <key>CFBundleURLTypes</key>
+    <array>
+    	<dict>
+    		<key>CFBundleTypeRole</key>
+    		<string>Editor</string>
+    		<key>CFBundleURLSchemes</key>
+    		<array>
+    			<string>com.googleusercontent.apps.665676846321-7a6e3hh6ee8vd8mds0jmfm8b0u8ipb0o</string>
+    		</array>
+    	</dict>
+    </array>
+    <!-- End of the Google Sign-in Section -->
 </dict>
 </plist>

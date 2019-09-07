@@ -4,14 +4,6 @@
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
-# Add the Firebase pod for Google Analytics
-pod 'Firebase/Analytics'
-
-# Add the pods for any other Firebase products you want to use in your app
-# For example, to use Firebase Authentication and Cloud Firestore
-pod 'Firebase/Auth'
-pod 'Firebase/Firestore'
-
 project 'Runner', {
   'Debug' => :debug,
   'Profile' => :release,
@@ -78,3 +70,16 @@ post_install do |installer|
     end
   end
 end
+
+
+# Add the Firebase pod for Google Analytics
+pod 'Firebase/Analytics'
+
+# Add the pods for any other Firebase products you want to use in your app
+# For example, to use Firebase Authentication and Cloud Firestore
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
+pod 'Firebase/Performance'
+pod 'Fabric'
+pod 'Crashlytics'
