@@ -45,6 +45,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   @override
   void initState() {
     super.initState();
+    main();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -265,6 +266,12 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     }
 
     return Row(children: toggles);
+  }
+
+
+  @override
+  Future<bool> didPopRoute() async {
+    return Navigator.pop(context);
   }
 
   String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();

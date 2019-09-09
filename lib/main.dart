@@ -1,5 +1,7 @@
+import 'dart:io';
 
 import 'package:bones/bloc.dart';
+import 'package:bones/camera.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -15,24 +17,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
-      ],
-      theme: ThemeData.light(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-      ),
-      home: MyHomePage(title: '',)
-    );
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
+        theme: ThemeData.light(
+            // This is the theme of your application.
+            //
+            // Try running your application with "flutter run". You'll see the
+            // application has a blue toolbar. Then, without quitting the app, try
+            // changing the primarySwatch below to Colors.green and then invoke
+            // "hot reload" (press "r" in the console where you ran "flutter run",
+            // or simply save your changes to "hot reload" in a Flutter IDE).
+            // Notice that the counter didn't reset back to zero; the application
+            // is not restarted.
+            ),
+        home: MyHomePage(
+          title: '',
+        ));
   }
 }
 
@@ -55,7 +58,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   String _filePath;
 
   void getFilePath() async {
@@ -83,34 +85,31 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         centerTitle: true,
       ),
-
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Welcome,',
-                style: headlineStyle,
+                Text(
+                  'Discover',
+                  style: headlineStyle,
                 ),
-                Text('Let us give', style: headlineStyle,),
-                Text('VOICE', style: headlineStyle,),
-                Text('To the unheards.', style: headlineStyle,),
               ],
             ),
           ),
 
-          Center(
-            child: MaterialButton(
-              child: Text('Find Image'),
-              onPressed: () {getFilePath();},
-              color: Colors.amber,
-            ),
+          MaterialButton(
+            child: Text('Find Image'),
+            onPressed: () {
+              getFilePath();
+            },
+            color: Colors.amber,
           ),
-          Center(child: Text(_filePath==null?'empty': _filePath)),
+//          Center(child: Text(_filePath==null?'empty': _filePath)),
 //          StreamBuilder<String>(
 //            stream: classifierBloc.classifierStream,
 //            builder: (context, _) {
@@ -121,17 +120,19 @@ class _MyHomePageState extends State<MyHomePage> {
 //              }
 //            },
 //          ),
-//          Center(child: _filePath == null? Container():Image.file(File.fromUri(Uri.parse(_filePath)))),
+//          Center(child: _filePath == null? Container():Image.file(File.fromUri(Uri.parse(_filePath)), height: 300, fit: BoxFit.fill,)),
           MaterialButton(
             onPressed: () {
-              print('here');
-              classifierBloc.uploadFileToServer(_filePath);
-              },
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                return CameraApp();
+              }));
+            },
             child: Text("upload"),
             color: Colors.amber,
           ),
           Spacer(),
-          Image.asset('assets/cute_dog_home_page.png',
+          Image.asset(
+            'assets/cute_dog_home_page.png',
             alignment: Alignment.bottomRight,
             scale: 3,
             repeat: ImageRepeat.noRepeat,
@@ -146,5 +147,4 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     classifierBloc.fetchDogData();
   }
-
 }
