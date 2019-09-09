@@ -14,6 +14,10 @@ class ClassifierBloc {
     _behaviorSubject.sink.add(event);
   }
 
+  void uploadFileToServer(String filePath) async {
+    await _caller.uploadFile(filePath);
+  }
+
   void close() {
     _behaviorSubject.close();
   }

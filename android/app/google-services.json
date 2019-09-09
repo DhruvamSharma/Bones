@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "665676846321",
+    "firebase_url": "https://bones-40bc4.firebaseio.com",
+    "project_id": "bones-40bc4",
+    "storage_bucket": "bones-40bc4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665676846321:android:5f0e4e5ffb5f87c2124550",
+        "android_client_info": {
+          "package_name": "com.bones"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665676846321-pjpah8oncb0b8qdnc10c2okbcag5l991.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjhr5YWz5sfVPpMLLFU_iG_2iJ8wDfE3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665676846321-pjpah8oncb0b8qdnc10c2okbcag5l991.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "665676846321-7a6e3hh6ee8vd8mds0jmfm8b0u8ipb0o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bones"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
