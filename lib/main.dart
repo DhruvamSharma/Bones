@@ -5,6 +5,8 @@ import 'package:bones/camera.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -57,7 +59,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
   String _filePath;
 
   void getFilePath() async {
@@ -79,6 +81,29 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      bottomSheet: BottomSheet(
+        backgroundColor: Colors.amber,
+        elevation: 8,
+        enableDrag: true,
+        onClosing: () {
+        },
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+//              Text('BottomSheet'),
+              Image.asset(
+                'assets/cute_dog_home_page.png',
+                alignment: Alignment.bottomRight,
+                scale: 3,
+                repeat: ImageRepeat.noRepeat,
+              ),
+            ],
+          );
+        },
+      ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -102,13 +127,29 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
 
-          MaterialButton(
-            child: Text('Find Image'),
-            onPressed: () {
-              getFilePath();
-            },
-            color: Colors.amber,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  'You have no discover history. Give the button a click and see the magic happen.'),
+            ),
           ),
+
+          ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 400),
+              child: FlareActor(
+                'assets/loading_animation.flr',
+                fit: BoxFit.contain,
+                animation: 'load',
+              ))
+
+//          MaterialButton(
+//            child: Text('Find Image'),
+//            onPressed: () {
+//              getFilePath();
+//            },
+//            color: Colors.amber,
+//          ),
 //          Center(child: Text(_filePath==null?'empty': _filePath)),
 //          StreamBuilder<String>(
 //            stream: classifierBloc.classifierStream,
@@ -121,22 +162,15 @@ class _MyHomePageState extends State<MyHomePage> {
 //            },
 //          ),
 //          Center(child: _filePath == null? Container():Image.file(File.fromUri(Uri.parse(_filePath)), height: 300, fit: BoxFit.fill,)),
-          MaterialButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                return CameraApp();
-              }));
-            },
-            child: Text("upload"),
-            color: Colors.amber,
-          ),
-          Spacer(),
-          Image.asset(
-            'assets/cute_dog_home_page.png',
-            alignment: Alignment.bottomRight,
-            scale: 3,
-            repeat: ImageRepeat.noRepeat,
-          ),
+//          MaterialButton(
+//            onPressed: () {
+//              Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+//                return CameraApp();
+//              }));
+//            },
+//            child: Text("upload"),
+//            color: Colors.amber,
+//          ),
         ],
       ),
     );
