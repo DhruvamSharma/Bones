@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:bones/bloc.dart';
 import 'package:bones/ui/home_screen/process_sheet.dart';
-import 'package:bones/ui/post_screen/camera.dart';
 import 'package:bones/resources/dimensions.dart';
+import 'package:bones/ui/post_screen/camera.dart' as prefix0;
+import 'package:bones/ui/post_screen/image_capture.dart' as camera;
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -65,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String _filePath;
   VoidCallback _showImageDiagnoseSheetCallback;
+  int clickTimes = 0;
 
   @override
   void initState() {
@@ -72,7 +73,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _showImageDiagnoseSheetCallback = _showImageDiagnoseSheet;
   }
 
-  void _showImageDiagnoseSheet() {
+  void _showImageDiagnoseSheet() async {
+    await prefix0.main();
     setState(() {
       _showImageDiagnoseSheetCallback = null;
     });
@@ -107,14 +109,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   );
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Text(widget.title),
-        centerTitle: true,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _showImageDiagnoseSheetCallback,
+        label: Text('Check'),
+        icon: Icon(Icons.search),
+        backgroundColor: Colors.amber,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,24 +134,28 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
           ),
           Center(
+            heightFactor: 10,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  'You have no discover history. Give the button a click and see the magic happen.'),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 300),
+                child: Text(
+                    'You have no discover history. Give the button a click and see the magic happen.'),
+              ),
             ),
           ),
-          ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 400),
-              child: FlareActor(
-                'assets/loading_animation.flr',
-                fit: BoxFit.contain,
-                animation: 'load',
-              )),
-          MaterialButton(
-            child: Text('Find Image'),
-            onPressed: _showImageDiagnoseSheetCallback,
-            color: Colors.amber,
-          ),
+//          ConstrainedBox(
+//              constraints: BoxConstraints(maxHeight: 400),
+//              child: FlareActor(
+//                'assets/loading_animation.flr',
+//                fit: BoxFit.contain,
+//                animation: 'load',
+//              )),
+//          MaterialButton(
+//            child: Text('Find Image'),
+//            onPressed: _showImageDiagnoseSheetCallback,
+//            color: Colors.amber,
+//          ),
         ],
       ),
     );

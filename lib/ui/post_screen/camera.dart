@@ -45,7 +45,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   @override
   void initState() {
     super.initState();
-    main();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -489,5 +488,4 @@ Future<void> main() async {
   } on CameraException catch (e) {
     logError(e.code, e.description);
   }
-  runApp(CameraApp());
 }
