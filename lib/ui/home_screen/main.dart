@@ -5,6 +5,7 @@ import 'package:bones/ui/home_screen/process_sheet.dart';
 import 'package:bones/resources/dimensions.dart';
 import 'package:bones/ui/post_screen/camera.dart' as prefix0;
 import 'package:bones/ui/post_screen/image_capture.dart' as camera;
+import 'package:camera/camera.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -12,7 +13,13 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+  print(cameras.length);
+  classifierBloc.storeCamera(cameras);
+  runApp(MyApp());
+}
 
 FirebaseAnalytics analytics = FirebaseAnalytics();
 
@@ -74,7 +81,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   void _showImageDiagnoseSheet() async {
-    await prefix0.main();
     setState(() {
       _showImageDiagnoseSheetCallback = null;
     });

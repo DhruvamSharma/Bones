@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   camera: ^0.5.4+1
   path_provider:
+  path:
   video_player:
   http:
   rxdart:
