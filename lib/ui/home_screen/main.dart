@@ -1,16 +1,25 @@
 import 'dart:io';
 
 import 'package:bones/bloc.dart';
-import 'package:bones/camera.dart';
+import 'package:bones/ui/home_screen/process_sheet.dart';
+import 'package:bones/resources/dimensions.dart';
+import 'package:bones/ui/post_screen/camera.dart' as prefix0;
+import 'package:bones/ui/post_screen/image_capture.dart' as camera;
+import 'package:camera/camera.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+  print(cameras.length);
+  classifierBloc.storeCamera(cameras);
+  runApp(MyApp());
+}
 
 FirebaseAnalytics analytics = FirebaseAnalytics();
 
@@ -59,8 +68,35 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String _filePath;
+  VoidCallback _showImageDiagnoseSheetCallback;
+  int clickTimes = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _showImageDiagnoseSheetCallback = _showImageDiagnoseSheet;
+  }
+
+  void _showImageDiagnoseSheet() async {
+    setState(() {
+      _showImageDiagnoseSheetCallback = null;
+    });
+    _scaffoldKey.currentState
+        .showBottomSheet<void>((_) {
+          return ProcessSheetContainer();
+        })
+        .closed
+        .whenComplete(() {
+          if (mounted) {
+            setState(() {
+              _showImageDiagnoseSheetCallback = _showImageDiagnoseSheet;
+            });
+          }
+        });
+  }
 
   void getFilePath() async {
     try {
@@ -74,48 +110,25 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
   }
 
   final headlineStyle = TextStyle(
-    fontSize: 32,
+    fontSize: FontDimens.headingDimen,
     color: Colors.black,
   );
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      bottomSheet: BottomSheet(
+      key: _scaffoldKey,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _showImageDiagnoseSheetCallback,
+        label: Text('Check'),
+        icon: Icon(Icons.search),
         backgroundColor: Colors.amber,
-        elevation: 8,
-        enableDrag: true,
-        onClosing: () {
-        },
-        builder: (context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-//              Text('BottomSheet'),
-              Image.asset(
-                'assets/cute_dog_home_page.png',
-                alignment: Alignment.bottomRight,
-                scale: 3,
-                repeat: ImageRepeat.noRepeat,
-              ),
-            ],
-          );
-        },
-      ),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Text(widget.title),
-        centerTitle: true,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(Dimensions.paddingDimen),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -126,59 +139,31 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
               ],
             ),
           ),
-
           Center(
+            heightFactor: 10,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  'You have no discover history. Give the button a click and see the magic happen.'),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 300),
+                child: Text(
+                    'You have no discover history. Give the button a click and see the magic happen.'),
+              ),
             ),
           ),
-
-          ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: 400),
-              child: FlareActor(
-                'assets/loading_animation.flr',
-                fit: BoxFit.contain,
-                animation: 'load',
-              ))
-
+//          ConstrainedBox(
+//              constraints: BoxConstraints(maxHeight: 400),
+//              child: FlareActor(
+//                'assets/loading_animation.flr',
+//                fit: BoxFit.contain,
+//                animation: 'load',
+//              )),
 //          MaterialButton(
 //            child: Text('Find Image'),
-//            onPressed: () {
-//              getFilePath();
-//            },
-//            color: Colors.amber,
-//          ),
-//          Center(child: Text(_filePath==null?'empty': _filePath)),
-//          StreamBuilder<String>(
-//            stream: classifierBloc.classifierStream,
-//            builder: (context, _) {
-//              if (_.connectionState == ConnectionState.waiting) {
-//                return Center(child: CircularProgressIndicator());
-//              } else {
-//                return Text(_.data);
-//              }
-//            },
-//          ),
-//          Center(child: _filePath == null? Container():Image.file(File.fromUri(Uri.parse(_filePath)), height: 300, fit: BoxFit.fill,)),
-//          MaterialButton(
-//            onPressed: () {
-//              Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-//                return CameraApp();
-//              }));
-//            },
-//            child: Text("upload"),
+//            onPressed: _showImageDiagnoseSheetCallback,
 //            color: Colors.amber,
 //          ),
         ],
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    classifierBloc.fetchDogData();
   }
 }
