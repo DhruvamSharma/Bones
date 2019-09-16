@@ -123,6 +123,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         icon: Icon(Icons.search),
         backgroundColor: Colors.amber,
       ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
