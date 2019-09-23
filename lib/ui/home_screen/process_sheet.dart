@@ -1,8 +1,8 @@
-import 'package:bones/bloc.dart';
+import 'package:bones/ui/home_screen/bloc.dart';
 import 'package:bones/resources/dimensions.dart';
 import 'package:bones/resources/loader.dart';
 import 'package:flutter/material.dart';
-import 'package:bones/ui/post_screen/image_capture.dart';
+import 'package:bones/ui/camera_screen/image_capture.dart';
 class ProcessSheetContainer extends StatefulWidget {
   @override
   _ProcessSheetContainerState createState() => _ProcessSheetContainerState();
