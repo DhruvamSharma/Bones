@@ -1,9 +1,7 @@
 import 'package:bones/resources/global_styles.dart';
-import 'package:bones/ui/camera_screen/camera.dart' as prefix0;
 import 'package:bones/ui/home_screen/enter_exit_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:bones/ui/home_screen/process_sheet.dart';
-import 'package:bones/resources/dimensions.dart';
 import 'package:flutter/services.dart';
 import 'package:bones/ui/camera_screen/image_capture.dart';
 import 'package:file_picker/file_picker.dart';

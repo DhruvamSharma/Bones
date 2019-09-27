@@ -25,7 +25,12 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [
           FirebaseAnalyticsObserver(analytics: analytics),
         ],
-        theme: ThemeData.dark(),
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Colors.black,
+          floatingActionButtonTheme: FloatingActionButtonThemeData().copyWith(
+            backgroundColor: Colors.white,
+          )
+        ),
         home: MyHomePage(
           title: '',
         ));

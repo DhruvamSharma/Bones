@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bones/resources/api_caller.dart';
 import 'package:camera/camera.dart';
+import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ClassifierBloc {
@@ -11,13 +12,9 @@ class ClassifierBloc {
   BehaviorSubject<String> _behaviorSubject = BehaviorSubject<String>();
   Stream<String> get classifierStream => _behaviorSubject.stream;
 
-  void fetchDogData() async {
-    String event = await _caller.fetchDogType();
+  void fetchDogData(String url) async {
+    String event = await _caller.fetchDogType(url);
     _behaviorSubject.sink.add(event);
-  }
-
-  void uploadFileToServer(String filePath) async {
-    await _caller.uploadFile(filePath);
   }
 
   void close() {
