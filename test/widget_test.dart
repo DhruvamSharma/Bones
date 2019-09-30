@@ -11,20 +11,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bones/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('find few widgets on hme screen', (WidgetTester tester) async {
+    // Build the app and trigger a frame.
     await tester.pumpWidget(MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.byIcon(Icons.search), findsOneWidget);
+    expect(find.text('Discover'), findsOneWidget);
+    expect(find.text('Find what is lost'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.byIcon(Icons.search), findsNothing);
+    expect(find.text('Discover'), findsNothing);
+    expect(find.text('Find what is lost'), findsNothing);
   });
 }

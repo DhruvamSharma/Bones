@@ -87,6 +87,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   void _navigateToCamera() {
-    Navigator.push(context, EnterExitRoute(enterPage: CameraApp(), exitPage: widget));
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return CameraApp();
+    }));
   }
 }

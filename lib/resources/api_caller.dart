@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-import 'dart:convert' show utf8;
 
 import 'package:bones/ui/camera_screen/camera_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +27,7 @@ class ClassifierCaller {
     return responseData;
   }
 
-  String encodeUrlComponents(String fileUrl) {
+  String _encodeUrlComponents(String fileUrl) {
     String encodedImageUrl = Uri.encodeComponent(fileUrl);
     return '$_baseUrl?token=$_subscriptionKey&url=$encodedImageUrl';
   }
