@@ -1,13 +1,15 @@
-import 'dart:io';
-
 import 'package:bones/ui/home_screen/bloc.dart';
 import 'package:bones/resources/loader.dart';
-import 'package:bones/ui/camera_screen/camera_bloc.dart';
 import 'package:bones/ui/camera_screen/capture_button.dart';
 import 'package:bones/ui/home_screen/enter_exit_transition.dart';
+import 'package:bones/ui/home_screen/process_sheet.dart';
 import 'package:bones/ui/post_screen/post_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'camera_bloc.dart';
 
 class CameraApp extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
   double cameraPadding = 0;
   List cameras;
   int selectedCameraIdx;
+  VoidCallback _showImageDiagnoseSheetCallback;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -29,7 +32,8 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     // To display the current output from the Camera,
     // create a CameraController.
-    if (classifierBloc.cameraList != null && classifierBloc.cameraList.isNotEmpty) {
+    if (classifierBloc.cameraList != null &&
+        classifierBloc.cameraList.isNotEmpty) {
       _initializeControllerFuture =
           _initCameraController(classifierBloc.cameraList.first);
     }
@@ -44,30 +48,27 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: FutureBuilder<dynamic> (
+      body: FutureBuilder<dynamic>(
           future: _initializeControllerFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (_controller == null || !_controller.value.isInitialized) {
                 return Container();
               }
-
-              return Stack(
-                fit: StackFit.loose,
-                alignment: Alignment.bottomCenter,
-                children: <Widget>[
-                  CameraPreview(_controller),
-                  ImageCaptureButton(
-                    onClick: _onClick,
-                    controller: _controller,
-                    initializeControllerFuture: _initializeControllerFuture,
-                  ),
-                ],
+              return GestureDetector(
+                onDoubleTap: _clickPicture,
+                child: Stack(
+                  fit: StackFit.loose,
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[
+                    CameraPreview(_controller),
+                    AppBar(
+                      automaticallyImplyLeading: true,
+                      elevation: 0,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ],
+                ),
               );
             } else {
               return ErrorWidget();
@@ -77,7 +78,55 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
   }
 
   void _onClick() {
-    Navigator.push(this.context, EnterExitRoute(exitPage: widget, enterPage: PostScreen()));
+    Navigator.push(this.context,
+        EnterExitRoute(exitPage: widget, enterPage: PostScreen()));
+  }
+
+  void _bottomSheetOpen() {
+    if (_scaffoldKey.currentState != null) {
+      setState(() {
+        _showImageDiagnoseSheetCallback = null;
+      });
+      _scaffoldKey.currentState
+          .showBottomSheet<void>((_) {
+            return ProcessSheetContainer();
+          })
+          .closed
+          .whenComplete(() {
+            if (mounted) {
+              setState(() {
+                _showImageDiagnoseSheetCallback = _bottomSheetOpen;
+              });
+            }
+          });
+    }
+  }
+
+  _clickPicture() async {
+    // Take the Picture in a try / catch block. If anything goes wrong,
+    // catch the error.
+    try {
+      // Ensure that the camera is initialized.
+      await _initializeControllerFuture;
+
+      // Construct the path where the image should be saved using the path
+      // package.
+      final path = join(
+        // Store the picture in the temp directory.
+        // Find the temp directory using the `path_provider` plugin.
+        (await getTemporaryDirectory()).path,
+        '${DateTime.now()}.png',
+      );
+      // Attempt to take a picture and log where it's been saved.
+      await _controller.takePicture(path);
+      setState(() {
+        cameraBloc.filePath = path;
+      });
+      _onClick();
+    } catch (e) {
+      // If an error occurs, log the error to the console.
+      print(e);
+    }
   }
 
   Future _initCameraController(CameraDescription cameraDescription) async {
@@ -88,7 +137,7 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
     // You are creating a CameraController object which takes two arguments,
     // first a cameraDescription and second a resolutionPreset with which
     // the picture should be captured. ResolutionPreset can have
-    // only 3 values i.e high, mediumand low.
+    // only 3 values i.e high, medium and low.
     _controller =
         CameraController(cameraDescription, ResolutionPreset.ultraHigh);
 

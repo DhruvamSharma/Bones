@@ -1,7 +1,4 @@
 import 'package:bones/ui/camera_screen/camera_bloc.dart';
-import 'package:bones/ui/home_screen/enter_exit_transition.dart';
-import 'package:bones/ui/home_screen/process_sheet.dart';
-import 'package:bones/ui/post_screen/post_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +25,7 @@ class _ImageCaptureButtonState extends State<ImageCaptureButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 48.0),
       child: Container(
         child: FloatingActionButton.extended(
           onPressed: _clickPicture,
@@ -43,7 +40,6 @@ class _ImageCaptureButtonState extends State<ImageCaptureButton> {
   _clickPicture() async {
     // Take the Picture in a try / catch block. If anything goes wrong,
     // catch the error.
-    widget.onClick();
     try {
       // Ensure that the camera is initialized.
       await widget.initializeControllerFuture;
@@ -61,11 +57,11 @@ class _ImageCaptureButtonState extends State<ImageCaptureButton> {
       setState(() {
         _filePath = path;
         cameraBloc.filePath = _filePath;
-        print(_filePath);
       });
     } catch (e) {
       // If an error occurs, log the error to the console.
       print(e);
     }
+    widget.onClick();
   }
 }
