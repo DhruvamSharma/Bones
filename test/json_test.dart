@@ -163,35 +163,6 @@ void main() {
                                 "accentColor": "7F4623"
                             },
                             {
-                                "webSearchUrl": "https://www.bing.com/images/search?view=detailv2&FORM=OIIRPO&id=83E5389EF95649C9EC12A8580025CCD8AC6FB8F7&simid=607996011949326921",
-                                "webSearchUrlPingSuffix": "DevEx,5075.1",
-                                "name": "I did the math...",
-                                "thumbnailUrl": "https://tse4.mm.bing.net/th?id=OIP.JcyzG80biH-3acAtf7T0AAHaFX&pid=Api",
-                                "datePublished": "2018-11-02T14:04:00.0000000Z",
-                                "isFamilyFriendly": true,
-                                "contentUrl": "https://cdn.iwastesomuchtime.com/6202012014321wellsinceaneducatedgentlemansaidit.jpeg",
-                                "contentUrlPingSuffix": "DevEx,5077.1",
-                                "hostPageUrl": "http://iwastesomuchtime.com/on/?i=41252",
-                                "hostPageUrlPingSuffix": "DevEx,5076.1",
-                                "contentSize": "38016 B",
-                                "encodingFormat": "jpeg",
-                                "hostPageDisplayUrl": "iwastesomuchtime.com/on/?i=41252",
-                                "width": 496,
-                                "height": 359,
-                                "hostPageFavIconUrl": "https://www.bing.com/th?id=ODF.Ljc3Eluyw2D-3Q51EYwwnA&pid=Api",
-                                "thumbnail": {
-                                    "width": 474,
-                                    "height": 343
-                                },
-                                "imageInsightsToken": "ccid_JcyzG80b*mid_83E5389EF95649C9EC12A8580025CCD8AC6FB8F7*simid_607996011949326921*thid_OIP.JcyzG80biH-3acAtf7T0AAHaFX",
-                                "insightsMetadata": {
-                                    "pagesIncludingCount": 60,
-                                    "availableSizesCount": 18
-                                },
-                                "imageId": "83E5389EF95649C9EC12A8580025CCD8AC6FB8F7",
-                                "accentColor": "7E4627"
-                            },
-                            {
                                 "webSearchUrl": "https://www.bing.com/images/search?view=detailv2&FORM=OIIRPO&id=EF2A3DE6FCEF6E0C75E1D99D9FCC87787802DD63&simid=608024109612598922",
                                 "webSearchUrlPingSuffix": "DevEx,5081.1",
                                 "name": "10 Funniest Dog Memes - 3. - YouTube",
@@ -283,35 +254,6 @@ void main() {
                                 },
                                 "imageId": "E0309DBE9962BF2628401C61535AAC052B5BAA4A",
                                 "accentColor": "AB5120"
-                            },
-                            {
-                                "webSearchUrl": "https://www.bing.com/images/search?view=detailv2&FORM=OIIRPO&id=FBBAC755EFCFBA7AD7C65FCB52766EFD2C78DE8E&simid=607999705600494779",
-                                "webSearchUrlPingSuffix": "DevEx,5099.1",
-                                "name": "\"I did the math... we can't afford the cat.\" ~ Dog Shaming shame ...",
-                                "thumbnailUrl": "https://tse3.mm.bing.net/th?id=OIP.Ehfoh9_RBh-hYfXQj-o9pQHaFj&pid=Api",
-                                "datePublished": "2019-04-13T08:29:00.0000000Z",
-                                "isFamilyFriendly": true,
-                                "contentUrl": "https://i.pinimg.com/736x/32/53/71/3253713782b06485e534bf4fa70d4bb5--funny-dogs-funny-animals.jpg",
-                                "contentUrlPingSuffix": "DevEx,5101.1",
-                                "hostPageUrl": "https://www.pinterest.com.au/pin/352477108306912611/",
-                                "hostPageUrlPingSuffix": "DevEx,5100.1",
-                                "contentSize": "38905 B",
-                                "encodingFormat": "jpeg",
-                                "hostPageDisplayUrl": "https://www.pinterest.com.au/pin/352477108306912611",
-                                "width": 500,
-                                "height": 375,
-                                "hostPageFavIconUrl": "https://www.bing.com/th?id=ODF.5dOn7AOtszYjchlmI5pVoA&pid=Api",
-                                "thumbnail": {
-                                    "width": 474,
-                                    "height": 355
-                                },
-                                "imageInsightsToken": "ccid_Ehfoh9/R*mid_FBBAC755EFCFBA7AD7C65FCB52766EFD2C78DE8E*simid_607999705600494779*thid_OIP.Ehfoh9!_RBh-hYfXQj-o9pQHaFj",
-                                "insightsMetadata": {
-                                    "pagesIncludingCount": 54,
-                                    "availableSizesCount": 18
-                                },
-                                "imageId": "FBBAC755EFCFBA7AD7C65FCB52766EFD2C78DE8E",
-                                "accentColor": "AD521E"
                             },
                             {
                                 "webSearchUrl": "https://www.bing.com/images/search?view=detailv2&FORM=OIIRPO&id=5AF7951FF960076AA8CD16A7ECC92DC2F5830608&simid=608009017120130859",
@@ -1075,35 +1017,6 @@ void main() {
                                 },
                                 "imageId": "E453221298756610F3BB3411D0552788E1977A2E",
                                 "accentColor": "804527"
-                            },
-                            {
-                                "webSearchUrl": "https://www.bing.com/images/search?view=detailv2&FORM=OIIRPO&id=83E5389EF95649C9EC1244B763684F3E74AD5511&simid=608006044963835511",
-                                "webSearchUrlPingSuffix": "DevEx,5261.1",
-                                "name": "I did the math...",
-                                "thumbnailUrl": "https://tse4.mm.bing.net/th?id=OIP.mGaCL-FKlkhxBVS-Pipx5wHaFX&pid=Api",
-                                "datePublished": "2012-06-20T20:24:00.0000000Z",
-                                "isFamilyFriendly": true,
-                                "contentUrl": "http://cdn.iwastesomuchtime.com/6202012014321wellsinceaneducatedgentlemansaidit.jpeg",
-                                "contentUrlPingSuffix": "DevEx,5263.1",
-                                "hostPageUrl": "http://iwastesomuchtime.com/on/?i=41252",
-                                "hostPageUrlPingSuffix": "DevEx,5262.1",
-                                "contentSize": "39870 B",
-                                "encodingFormat": "jpeg",
-                                "hostPageDisplayUrl": "iwastesomuchtime.com/on/?i=41252",
-                                "width": 496,
-                                "height": 359,
-                                "hostPageFavIconUrl": "https://www.bing.com/th?id=ODF.Ljc3Eluyw2D-3Q51EYwwnA&pid=Api",
-                                "thumbnail": {
-                                    "width": 474,
-                                    "height": 343
-                                },
-                                "imageInsightsToken": "ccid_mGaCL+FK*mid_83E5389EF95649C9EC1244B763684F3E74AD5511*simid_608006044963835511*thid_OIP.mGaCL-FKlkhxBVS-Pipx5wHaFX",
-                                "insightsMetadata": {
-                                    "pagesIncludingCount": 61,
-                                    "availableSizesCount": 18
-                                },
-                                "imageId": "83E5389EF95649C9EC1244B763684F3E74AD5511",
-                                "accentColor": "7E4627"
                             },
                             {
                                 "webSearchUrl": "https://www.bing.com/images/search?view=detailv2&FORM=OIIRPO&id=3E2F96017F5EF3293E69828EA132A0DFF63181C7&simid=608026106727694977",
@@ -5377,6 +5290,6 @@ void main() {
 }""";
 
 
-    expect(parseJson(jsonString), "https://www.bingapis.com/api/ping/pageload?IG=8C1B003FEDCB4A7AB273EB49F49F76DC&CID=110480B36169678F285E8D5460A166D6&Type=Event.CPT&DATA=0");
+    expect(parseJson(jsonString).sType, "ImageKnowledge");
   });
 }
