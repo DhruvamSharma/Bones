@@ -6,15 +6,84 @@ part of 'bing_api_response.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<BingApiResponse> _$bingApiResponseSerializer =
+    new _$BingApiResponseSerializer();
+
+class _$BingApiResponseSerializer
+    implements StructuredSerializer<BingApiResponse> {
+  @override
+  final Iterable<Type> types = const [BingApiResponse, _$BingApiResponse];
+  @override
+  final String wireName = 'BingApiResponse';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, BingApiResponse object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'sType',
+      serializers.serialize(object.sType,
+          specifiedType: const FullType(String)),
+      'instrumentation',
+      serializers.serialize(object.instrumentation,
+          specifiedType: const FullType(Instrumentation)),
+      'tags',
+      serializers.serialize(object.tags,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(Tags)])),
+      'image',
+      serializers.serialize(object.image, specifiedType: const FullType(Image)),
+    ];
+
+    return result;
+  }
+
+  @override
+  BingApiResponse deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new BingApiResponseBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'sType':
+          result.sType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'instrumentation':
+          result.instrumentation.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(Instrumentation))
+              as Instrumentation);
+          break;
+        case 'tags':
+          result.tags.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Tags)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'image':
+          result.image.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Image)) as Image);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$BingApiResponse extends BingApiResponse {
   @override
   final String sType;
   @override
-  final String instrumentation;
+  final Instrumentation instrumentation;
   @override
-  final BuiltList<String> tags;
+  final BuiltList<Tags> tags;
   @override
-  final String image;
+  final Image image;
 
   factory _$BingApiResponse([void Function(BingApiResponseBuilder) updates]) =>
       (new BingApiResponseBuilder()..update(updates)).build();
@@ -80,27 +149,28 @@ class BingApiResponseBuilder
   String get sType => _$this._sType;
   set sType(String sType) => _$this._sType = sType;
 
-  String _instrumentation;
-  String get instrumentation => _$this._instrumentation;
-  set instrumentation(String instrumentation) =>
+  InstrumentationBuilder _instrumentation;
+  InstrumentationBuilder get instrumentation =>
+      _$this._instrumentation ??= new InstrumentationBuilder();
+  set instrumentation(InstrumentationBuilder instrumentation) =>
       _$this._instrumentation = instrumentation;
 
-  ListBuilder<String> _tags;
-  ListBuilder<String> get tags => _$this._tags ??= new ListBuilder<String>();
-  set tags(ListBuilder<String> tags) => _$this._tags = tags;
+  ListBuilder<Tags> _tags;
+  ListBuilder<Tags> get tags => _$this._tags ??= new ListBuilder<Tags>();
+  set tags(ListBuilder<Tags> tags) => _$this._tags = tags;
 
-  String _image;
-  String get image => _$this._image;
-  set image(String image) => _$this._image = image;
+  ImageBuilder _image;
+  ImageBuilder get image => _$this._image ??= new ImageBuilder();
+  set image(ImageBuilder image) => _$this._image = image;
 
   BingApiResponseBuilder();
 
   BingApiResponseBuilder get _$this {
     if (_$v != null) {
       _sType = _$v.sType;
-      _instrumentation = _$v.instrumentation;
+      _instrumentation = _$v.instrumentation?.toBuilder();
       _tags = _$v.tags?.toBuilder();
-      _image = _$v.image;
+      _image = _$v.image?.toBuilder();
       _$v = null;
     }
     return this;
@@ -126,14 +196,18 @@ class BingApiResponseBuilder
       _$result = _$v ??
           new _$BingApiResponse._(
               sType: sType,
-              instrumentation: instrumentation,
+              instrumentation: instrumentation.build(),
               tags: tags.build(),
-              image: image);
+              image: image.build());
     } catch (_) {
       String _$failedField;
       try {
+        _$failedField = 'instrumentation';
+        instrumentation.build();
         _$failedField = 'tags';
         tags.build();
+        _$failedField = 'image';
+        image.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'BingApiResponse', _$failedField, e.toString());
