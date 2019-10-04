@@ -6,6 +6,60 @@ part of 'bounding_box.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<BoundingBox> _$boundingBoxSerializer = new _$BoundingBoxSerializer();
+
+class _$BoundingBoxSerializer implements StructuredSerializer<BoundingBox> {
+  @override
+  final Iterable<Type> types = const [BoundingBox, _$BoundingBox];
+  @override
+  final String wireName = 'BoundingBox';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, BoundingBox object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.queryRectangle != null) {
+      result
+        ..add('queryRectangle')
+        ..add(serializers.serialize(object.queryRectangle,
+            specifiedType: const FullType(QueryRectangle)));
+    }
+    if (object.displayRectangle != null) {
+      result
+        ..add('displayRectangle')
+        ..add(serializers.serialize(object.displayRectangle,
+            specifiedType: const FullType(DisplayRectangle)));
+    }
+    return result;
+  }
+
+  @override
+  BoundingBox deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new BoundingBoxBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'queryRectangle':
+          result.queryRectangle.replace(serializers.deserialize(value,
+              specifiedType: const FullType(QueryRectangle)) as QueryRectangle);
+          break;
+        case 'displayRectangle':
+          result.displayRectangle.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(DisplayRectangle))
+              as DisplayRectangle);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$BoundingBox extends BoundingBox {
   @override
   final QueryRectangle queryRectangle;
@@ -15,14 +69,7 @@ class _$BoundingBox extends BoundingBox {
   factory _$BoundingBox([void Function(BoundingBoxBuilder) updates]) =>
       (new BoundingBoxBuilder()..update(updates)).build();
 
-  _$BoundingBox._({this.queryRectangle, this.displayRectangle}) : super._() {
-    if (queryRectangle == null) {
-      throw new BuiltValueNullFieldError('BoundingBox', 'queryRectangle');
-    }
-    if (displayRectangle == null) {
-      throw new BuiltValueNullFieldError('BoundingBox', 'displayRectangle');
-    }
-  }
+  _$BoundingBox._({this.queryRectangle, this.displayRectangle}) : super._();
 
   @override
   BoundingBox rebuild(void Function(BoundingBoxBuilder) updates) =>
@@ -98,15 +145,15 @@ class BoundingBoxBuilder implements Builder<BoundingBox, BoundingBoxBuilder> {
     try {
       _$result = _$v ??
           new _$BoundingBox._(
-              queryRectangle: queryRectangle.build(),
-              displayRectangle: displayRectangle.build());
+              queryRectangle: _queryRectangle?.build(),
+              displayRectangle: _displayRectangle?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'queryRectangle';
-        queryRectangle.build();
+        _queryRectangle?.build();
         _$failedField = 'displayRectangle';
-        displayRectangle.build();
+        _displayRectangle?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'BoundingBox', _$failedField, e.toString());

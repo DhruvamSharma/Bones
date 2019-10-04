@@ -6,6 +6,62 @@ part of 'regions.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Regions> _$regionsSerializer = new _$RegionsSerializer();
+
+class _$RegionsSerializer implements StructuredSerializer<Regions> {
+  @override
+  final Iterable<Type> types = const [Regions, _$Regions];
+  @override
+  final String wireName = 'Regions';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Regions object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.boundingBox != null) {
+      result
+        ..add('boundingBox')
+        ..add(serializers.serialize(object.boundingBox,
+            specifiedType: const FullType(BoundingBox)));
+    }
+    if (object.lines != null) {
+      result
+        ..add('lines')
+        ..add(serializers.serialize(object.lines,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Lines)])));
+    }
+    return result;
+  }
+
+  @override
+  Regions deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new RegionsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'boundingBox':
+          result.boundingBox.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BoundingBox)) as BoundingBox);
+          break;
+        case 'lines':
+          result.lines.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Lines)]))
+              as BuiltList<dynamic>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Regions extends Regions {
   @override
   final BoundingBox boundingBox;
@@ -15,14 +71,7 @@ class _$Regions extends Regions {
   factory _$Regions([void Function(RegionsBuilder) updates]) =>
       (new RegionsBuilder()..update(updates)).build();
 
-  _$Regions._({this.boundingBox, this.lines}) : super._() {
-    if (boundingBox == null) {
-      throw new BuiltValueNullFieldError('Regions', 'boundingBox');
-    }
-    if (lines == null) {
-      throw new BuiltValueNullFieldError('Regions', 'lines');
-    }
-  }
+  _$Regions._({this.boundingBox, this.lines}) : super._();
 
   @override
   Regions rebuild(void Function(RegionsBuilder) updates) =>
@@ -96,14 +145,14 @@ class RegionsBuilder implements Builder<Regions, RegionsBuilder> {
     try {
       _$result = _$v ??
           new _$Regions._(
-              boundingBox: boundingBox.build(), lines: lines.build());
+              boundingBox: _boundingBox?.build(), lines: _lines?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'boundingBox';
-        boundingBox.build();
+        _boundingBox?.build();
         _$failedField = 'lines';
-        lines.build();
+        _lines?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Regions', _$failedField, e.toString());

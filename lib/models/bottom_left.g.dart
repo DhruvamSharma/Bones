@@ -6,6 +6,59 @@ part of 'bottom_left.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<BottomLeft> _$bottomLeftSerializer = new _$BottomLeftSerializer();
+
+class _$BottomLeftSerializer implements StructuredSerializer<BottomLeft> {
+  @override
+  final Iterable<Type> types = const [BottomLeft, _$BottomLeft];
+  @override
+  final String wireName = 'BottomLeft';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, BottomLeft object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.x != null) {
+      result
+        ..add('x')
+        ..add(serializers.serialize(object.x,
+            specifiedType: const FullType(double)));
+    }
+    if (object.y != null) {
+      result
+        ..add('y')
+        ..add(serializers.serialize(object.y,
+            specifiedType: const FullType(double)));
+    }
+    return result;
+  }
+
+  @override
+  BottomLeft deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new BottomLeftBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'x':
+          result.x = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'y':
+          result.y = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$BottomLeft extends BottomLeft {
   @override
   final double x;
@@ -15,14 +68,7 @@ class _$BottomLeft extends BottomLeft {
   factory _$BottomLeft([void Function(BottomLeftBuilder) updates]) =>
       (new BottomLeftBuilder()..update(updates)).build();
 
-  _$BottomLeft._({this.x, this.y}) : super._() {
-    if (x == null) {
-      throw new BuiltValueNullFieldError('BottomLeft', 'x');
-    }
-    if (y == null) {
-      throw new BuiltValueNullFieldError('BottomLeft', 'y');
-    }
-  }
+  _$BottomLeft._({this.x, this.y}) : super._();
 
   @override
   BottomLeft rebuild(void Function(BottomLeftBuilder) updates) =>

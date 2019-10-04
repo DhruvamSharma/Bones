@@ -6,6 +6,119 @@ part of 'actions.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Actions> _$actionsSerializer = new _$ActionsSerializer();
+
+class _$ActionsSerializer implements StructuredSerializer<Actions> {
+  @override
+  final Iterable<Type> types = const [Actions, _$Actions];
+  @override
+  final String wireName = 'Actions';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Actions object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.sType != null) {
+      result
+        ..add('_type')
+        ..add(serializers.serialize(object.sType,
+            specifiedType: const FullType(String)));
+    }
+    if (object.actionType != null) {
+      result
+        ..add('actionType')
+        ..add(serializers.serialize(object.actionType,
+            specifiedType: const FullType(String)));
+    }
+    if (object.data != null) {
+      result
+        ..add('data')
+        ..add(serializers.serialize(object.data,
+            specifiedType: const FullType(Data)));
+    }
+    if (object.image != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(object.image,
+            specifiedType: const FullType(Image)));
+    }
+    if (object.webSearchUrl != null) {
+      result
+        ..add('webSearchUrl')
+        ..add(serializers.serialize(object.webSearchUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.webSearchUrlPingSuffix != null) {
+      result
+        ..add('webSearchUrlPingSuffix')
+        ..add(serializers.serialize(object.webSearchUrlPingSuffix,
+            specifiedType: const FullType(String)));
+    }
+    if (object.displayName != null) {
+      result
+        ..add('displayName')
+        ..add(serializers.serialize(object.displayName,
+            specifiedType: const FullType(String)));
+    }
+    if (object.serviceUrl != null) {
+      result
+        ..add('serviceUrl')
+        ..add(serializers.serialize(object.serviceUrl,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  Actions deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ActionsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case '_type':
+          result.sType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'actionType':
+          result.actionType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'data':
+          result.data.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Data)) as Data);
+          break;
+        case 'image':
+          result.image.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Image)) as Image);
+          break;
+        case 'webSearchUrl':
+          result.webSearchUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'webSearchUrlPingSuffix':
+          result.webSearchUrlPingSuffix = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'displayName':
+          result.displayName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'serviceUrl':
+          result.serviceUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Actions extends Actions {
   @override
   final String sType;
@@ -36,32 +149,7 @@ class _$Actions extends Actions {
       this.webSearchUrlPingSuffix,
       this.displayName,
       this.serviceUrl})
-      : super._() {
-    if (sType == null) {
-      throw new BuiltValueNullFieldError('Actions', 'sType');
-    }
-    if (actionType == null) {
-      throw new BuiltValueNullFieldError('Actions', 'actionType');
-    }
-    if (data == null) {
-      throw new BuiltValueNullFieldError('Actions', 'data');
-    }
-    if (image == null) {
-      throw new BuiltValueNullFieldError('Actions', 'image');
-    }
-    if (webSearchUrl == null) {
-      throw new BuiltValueNullFieldError('Actions', 'webSearchUrl');
-    }
-    if (webSearchUrlPingSuffix == null) {
-      throw new BuiltValueNullFieldError('Actions', 'webSearchUrlPingSuffix');
-    }
-    if (displayName == null) {
-      throw new BuiltValueNullFieldError('Actions', 'displayName');
-    }
-    if (serviceUrl == null) {
-      throw new BuiltValueNullFieldError('Actions', 'serviceUrl');
-    }
-  }
+      : super._();
 
   @override
   Actions rebuild(void Function(ActionsBuilder) updates) =>
@@ -189,8 +277,8 @@ class ActionsBuilder implements Builder<Actions, ActionsBuilder> {
           new _$Actions._(
               sType: sType,
               actionType: actionType,
-              data: data.build(),
-              image: image.build(),
+              data: _data?.build(),
+              image: _image?.build(),
               webSearchUrl: webSearchUrl,
               webSearchUrlPingSuffix: webSearchUrlPingSuffix,
               displayName: displayName,
@@ -199,9 +287,9 @@ class ActionsBuilder implements Builder<Actions, ActionsBuilder> {
       String _$failedField;
       try {
         _$failedField = 'data';
-        data.build();
+        _data?.build();
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Actions', _$failedField, e.toString());

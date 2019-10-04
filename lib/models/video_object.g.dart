@@ -6,6 +6,79 @@ part of 'video_object.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<VideoObject> _$videoObjectSerializer = new _$VideoObjectSerializer();
+
+class _$VideoObjectSerializer implements StructuredSerializer<VideoObject> {
+  @override
+  final Iterable<Type> types = const [VideoObject, _$VideoObject];
+  @override
+  final String wireName = 'VideoObject';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, VideoObject object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.datePublished != null) {
+      result
+        ..add('datePublished')
+        ..add(serializers.serialize(object.datePublished,
+            specifiedType: const FullType(String)));
+    }
+    if (object.creator != null) {
+      result
+        ..add('creator')
+        ..add(serializers.serialize(object.creator,
+            specifiedType: const FullType(Creator)));
+    }
+    if (object.duration != null) {
+      result
+        ..add('duration')
+        ..add(serializers.serialize(object.duration,
+            specifiedType: const FullType(String)));
+    }
+    if (object.viewCount != null) {
+      result
+        ..add('viewCount')
+        ..add(serializers.serialize(object.viewCount,
+            specifiedType: const FullType(int)));
+    }
+    return result;
+  }
+
+  @override
+  VideoObject deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new VideoObjectBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'datePublished':
+          result.datePublished = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'creator':
+          result.creator.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Creator)) as Creator);
+          break;
+        case 'duration':
+          result.duration = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'viewCount':
+          result.viewCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$VideoObject extends VideoObject {
   @override
   final String datePublished;
@@ -21,20 +94,7 @@ class _$VideoObject extends VideoObject {
 
   _$VideoObject._(
       {this.datePublished, this.creator, this.duration, this.viewCount})
-      : super._() {
-    if (datePublished == null) {
-      throw new BuiltValueNullFieldError('VideoObject', 'datePublished');
-    }
-    if (creator == null) {
-      throw new BuiltValueNullFieldError('VideoObject', 'creator');
-    }
-    if (duration == null) {
-      throw new BuiltValueNullFieldError('VideoObject', 'duration');
-    }
-    if (viewCount == null) {
-      throw new BuiltValueNullFieldError('VideoObject', 'viewCount');
-    }
-  }
+      : super._();
 
   @override
   VideoObject rebuild(void Function(VideoObjectBuilder) updates) =>
@@ -125,14 +185,14 @@ class VideoObjectBuilder implements Builder<VideoObject, VideoObjectBuilder> {
       _$result = _$v ??
           new _$VideoObject._(
               datePublished: datePublished,
-              creator: creator.build(),
+              creator: _creator?.build(),
               duration: duration,
               viewCount: viewCount);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'creator';
-        creator.build();
+        _creator?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'VideoObject', _$failedField, e.toString());

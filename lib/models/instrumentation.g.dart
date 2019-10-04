@@ -6,6 +6,72 @@ part of 'instrumentation.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Instrumentation> _$instrumentationSerializer =
+    new _$InstrumentationSerializer();
+
+class _$InstrumentationSerializer
+    implements StructuredSerializer<Instrumentation> {
+  @override
+  final Iterable<Type> types = const [Instrumentation, _$Instrumentation];
+  @override
+  final String wireName = 'Instrumentation';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Instrumentation object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.sType != null) {
+      result
+        ..add('_type')
+        ..add(serializers.serialize(object.sType,
+            specifiedType: const FullType(String)));
+    }
+    if (object.pingUrlBase != null) {
+      result
+        ..add('pingUrlBase')
+        ..add(serializers.serialize(object.pingUrlBase,
+            specifiedType: const FullType(String)));
+    }
+    if (object.pageLoadPingUrl != null) {
+      result
+        ..add('pageLoadPingUrl')
+        ..add(serializers.serialize(object.pageLoadPingUrl,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  Instrumentation deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new InstrumentationBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case '_type':
+          result.sType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'pingUrlBase':
+          result.pingUrlBase = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'pageLoadPingUrl':
+          result.pageLoadPingUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Instrumentation extends Instrumentation {
   @override
   final String sType;
@@ -18,17 +84,7 @@ class _$Instrumentation extends Instrumentation {
       (new InstrumentationBuilder()..update(updates)).build();
 
   _$Instrumentation._({this.sType, this.pingUrlBase, this.pageLoadPingUrl})
-      : super._() {
-    if (sType == null) {
-      throw new BuiltValueNullFieldError('Instrumentation', 'sType');
-    }
-    if (pingUrlBase == null) {
-      throw new BuiltValueNullFieldError('Instrumentation', 'pingUrlBase');
-    }
-    if (pageLoadPingUrl == null) {
-      throw new BuiltValueNullFieldError('Instrumentation', 'pageLoadPingUrl');
-    }
-  }
+      : super._();
 
   @override
   Instrumentation rebuild(void Function(InstrumentationBuilder) updates) =>

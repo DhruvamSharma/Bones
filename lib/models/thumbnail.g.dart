@@ -6,6 +6,59 @@ part of 'thumbnail.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Thumbnail> _$thumbnailSerializer = new _$ThumbnailSerializer();
+
+class _$ThumbnailSerializer implements StructuredSerializer<Thumbnail> {
+  @override
+  final Iterable<Type> types = const [Thumbnail, _$Thumbnail];
+  @override
+  final String wireName = 'Thumbnail';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Thumbnail object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.width != null) {
+      result
+        ..add('width')
+        ..add(serializers.serialize(object.width,
+            specifiedType: const FullType(int)));
+    }
+    if (object.height != null) {
+      result
+        ..add('height')
+        ..add(serializers.serialize(object.height,
+            specifiedType: const FullType(int)));
+    }
+    return result;
+  }
+
+  @override
+  Thumbnail deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ThumbnailBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'width':
+          result.width = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Thumbnail extends Thumbnail {
   @override
   final int width;
@@ -15,14 +68,7 @@ class _$Thumbnail extends Thumbnail {
   factory _$Thumbnail([void Function(ThumbnailBuilder) updates]) =>
       (new ThumbnailBuilder()..update(updates)).build();
 
-  _$Thumbnail._({this.width, this.height}) : super._() {
-    if (width == null) {
-      throw new BuiltValueNullFieldError('Thumbnail', 'width');
-    }
-    if (height == null) {
-      throw new BuiltValueNullFieldError('Thumbnail', 'height');
-    }
-  }
+  _$Thumbnail._({this.width, this.height}) : super._();
 
   @override
   Thumbnail rebuild(void Function(ThumbnailBuilder) updates) =>

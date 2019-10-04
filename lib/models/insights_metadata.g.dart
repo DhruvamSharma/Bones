@@ -6,6 +6,82 @@ part of 'insights_metadata.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<InsightsMetadata> _$insightsMetadataSerializer =
+    new _$InsightsMetadataSerializer();
+
+class _$InsightsMetadataSerializer
+    implements StructuredSerializer<InsightsMetadata> {
+  @override
+  final Iterable<Type> types = const [InsightsMetadata, _$InsightsMetadata];
+  @override
+  final String wireName = 'InsightsMetadata';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, InsightsMetadata object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.pagesIncludingCount != null) {
+      result
+        ..add('pagesIncludingCount')
+        ..add(serializers.serialize(object.pagesIncludingCount,
+            specifiedType: const FullType(int)));
+    }
+    if (object.availableSizesCount != null) {
+      result
+        ..add('availableSizesCount')
+        ..add(serializers.serialize(object.availableSizesCount,
+            specifiedType: const FullType(int)));
+    }
+    if (object.videoObject != null) {
+      result
+        ..add('videoObject')
+        ..add(serializers.serialize(object.videoObject,
+            specifiedType: const FullType(VideoObject)));
+    }
+    if (object.recipeSourcesCount != null) {
+      result
+        ..add('recipeSourcesCount')
+        ..add(serializers.serialize(object.recipeSourcesCount,
+            specifiedType: const FullType(int)));
+    }
+    return result;
+  }
+
+  @override
+  InsightsMetadata deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new InsightsMetadataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'pagesIncludingCount':
+          result.pagesIncludingCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'availableSizesCount':
+          result.availableSizesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'videoObject':
+          result.videoObject.replace(serializers.deserialize(value,
+              specifiedType: const FullType(VideoObject)) as VideoObject);
+          break;
+        case 'recipeSourcesCount':
+          result.recipeSourcesCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$InsightsMetadata extends InsightsMetadata {
   @override
   final int pagesIncludingCount;
@@ -25,23 +101,7 @@ class _$InsightsMetadata extends InsightsMetadata {
       this.availableSizesCount,
       this.videoObject,
       this.recipeSourcesCount})
-      : super._() {
-    if (pagesIncludingCount == null) {
-      throw new BuiltValueNullFieldError(
-          'InsightsMetadata', 'pagesIncludingCount');
-    }
-    if (availableSizesCount == null) {
-      throw new BuiltValueNullFieldError(
-          'InsightsMetadata', 'availableSizesCount');
-    }
-    if (videoObject == null) {
-      throw new BuiltValueNullFieldError('InsightsMetadata', 'videoObject');
-    }
-    if (recipeSourcesCount == null) {
-      throw new BuiltValueNullFieldError(
-          'InsightsMetadata', 'recipeSourcesCount');
-    }
-  }
+      : super._();
 
   @override
   InsightsMetadata rebuild(void Function(InsightsMetadataBuilder) updates) =>
@@ -141,13 +201,13 @@ class InsightsMetadataBuilder
           new _$InsightsMetadata._(
               pagesIncludingCount: pagesIncludingCount,
               availableSizesCount: availableSizesCount,
-              videoObject: videoObject.build(),
+              videoObject: _videoObject?.build(),
               recipeSourcesCount: recipeSourcesCount);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'videoObject';
-        videoObject.build();
+        _videoObject?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'InsightsMetadata', _$failedField, e.toString());

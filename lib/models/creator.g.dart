@@ -6,6 +6,49 @@ part of 'creator.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Creator> _$creatorSerializer = new _$CreatorSerializer();
+
+class _$CreatorSerializer implements StructuredSerializer<Creator> {
+  @override
+  final Iterable<Type> types = const [Creator, _$Creator];
+  @override
+  final String wireName = 'Creator';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Creator object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  Creator deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new CreatorBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Creator extends Creator {
   @override
   final String name;
@@ -13,11 +56,7 @@ class _$Creator extends Creator {
   factory _$Creator([void Function(CreatorBuilder) updates]) =>
       (new CreatorBuilder()..update(updates)).build();
 
-  _$Creator._({this.name}) : super._() {
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Creator', 'name');
-    }
-  }
+  _$Creator._({this.name}) : super._();
 
   @override
   Creator rebuild(void Function(CreatorBuilder) updates) =>

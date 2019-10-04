@@ -6,6 +6,82 @@ part of 'display_rectangle.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<DisplayRectangle> _$displayRectangleSerializer =
+    new _$DisplayRectangleSerializer();
+
+class _$DisplayRectangleSerializer
+    implements StructuredSerializer<DisplayRectangle> {
+  @override
+  final Iterable<Type> types = const [DisplayRectangle, _$DisplayRectangle];
+  @override
+  final String wireName = 'DisplayRectangle';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, DisplayRectangle object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.topLeft != null) {
+      result
+        ..add('topLeft')
+        ..add(serializers.serialize(object.topLeft,
+            specifiedType: const FullType(TopLeft)));
+    }
+    if (object.topRight != null) {
+      result
+        ..add('topRight')
+        ..add(serializers.serialize(object.topRight,
+            specifiedType: const FullType(TopRight)));
+    }
+    if (object.bottomLeft != null) {
+      result
+        ..add('bottomLeft')
+        ..add(serializers.serialize(object.bottomLeft,
+            specifiedType: const FullType(BottomLeft)));
+    }
+    if (object.bottomRight != null) {
+      result
+        ..add('bottomRight')
+        ..add(serializers.serialize(object.bottomRight,
+            specifiedType: const FullType(BottomRight)));
+    }
+    return result;
+  }
+
+  @override
+  DisplayRectangle deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new DisplayRectangleBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'topLeft':
+          result.topLeft.replace(serializers.deserialize(value,
+              specifiedType: const FullType(TopLeft)) as TopLeft);
+          break;
+        case 'topRight':
+          result.topRight.replace(serializers.deserialize(value,
+              specifiedType: const FullType(TopRight)) as TopRight);
+          break;
+        case 'bottomLeft':
+          result.bottomLeft.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BottomLeft)) as BottomLeft);
+          break;
+        case 'bottomRight':
+          result.bottomRight.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BottomRight)) as BottomRight);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$DisplayRectangle extends DisplayRectangle {
   @override
   final TopLeft topLeft;
@@ -22,20 +98,7 @@ class _$DisplayRectangle extends DisplayRectangle {
 
   _$DisplayRectangle._(
       {this.topLeft, this.topRight, this.bottomLeft, this.bottomRight})
-      : super._() {
-    if (topLeft == null) {
-      throw new BuiltValueNullFieldError('DisplayRectangle', 'topLeft');
-    }
-    if (topRight == null) {
-      throw new BuiltValueNullFieldError('DisplayRectangle', 'topRight');
-    }
-    if (bottomLeft == null) {
-      throw new BuiltValueNullFieldError('DisplayRectangle', 'bottomLeft');
-    }
-    if (bottomRight == null) {
-      throw new BuiltValueNullFieldError('DisplayRectangle', 'bottomRight');
-    }
-  }
+      : super._();
 
   @override
   DisplayRectangle rebuild(void Function(DisplayRectangleBuilder) updates) =>
@@ -130,21 +193,21 @@ class DisplayRectangleBuilder
     try {
       _$result = _$v ??
           new _$DisplayRectangle._(
-              topLeft: topLeft.build(),
-              topRight: topRight.build(),
-              bottomLeft: bottomLeft.build(),
-              bottomRight: bottomRight.build());
+              topLeft: _topLeft?.build(),
+              topRight: _topRight?.build(),
+              bottomLeft: _bottomLeft?.build(),
+              bottomRight: _bottomRight?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'topLeft';
-        topLeft.build();
+        _topLeft?.build();
         _$failedField = 'topRight';
-        topRight.build();
+        _topRight?.build();
         _$failedField = 'bottomLeft';
-        bottomLeft.build();
+        _bottomLeft?.build();
         _$failedField = 'bottomRight';
-        bottomRight.build();
+        _bottomRight?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'DisplayRectangle', _$failedField, e.toString());

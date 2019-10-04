@@ -6,6 +6,49 @@ part of 'final_image.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Image> _$imageSerializer = new _$ImageSerializer();
+
+class _$ImageSerializer implements StructuredSerializer<Image> {
+  @override
+  final Iterable<Type> types = const [Image, _$Image];
+  @override
+  final String wireName = 'Image';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Image object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.thumbnailUrl != null) {
+      result
+        ..add('thumbnailUrl')
+        ..add(serializers.serialize(object.thumbnailUrl,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  Image deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ImageBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'thumbnailUrl':
+          result.thumbnailUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Image extends Image {
   @override
   final String thumbnailUrl;
@@ -13,11 +56,7 @@ class _$Image extends Image {
   factory _$Image([void Function(ImageBuilder) updates]) =>
       (new ImageBuilder()..update(updates)).build();
 
-  _$Image._({this.thumbnailUrl}) : super._() {
-    if (thumbnailUrl == null) {
-      throw new BuiltValueNullFieldError('Image', 'thumbnailUrl');
-    }
-  }
+  _$Image._({this.thumbnailUrl}) : super._();
 
   @override
   Image rebuild(void Function(ImageBuilder) updates) =>

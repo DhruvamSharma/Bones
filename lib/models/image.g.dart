@@ -6,6 +6,49 @@ part of 'image.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Image> _$imageSerializer = new _$ImageSerializer();
+
+class _$ImageSerializer implements StructuredSerializer<Image> {
+  @override
+  final Iterable<Type> types = const [Image, _$Image];
+  @override
+  final String wireName = 'Image';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Image object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.imageInsightsToken != null) {
+      result
+        ..add('_type')
+        ..add(serializers.serialize(object.imageInsightsToken,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  Image deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ImageBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case '_type':
+          result.imageInsightsToken = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Image extends Image {
   @override
   final String imageInsightsToken;
@@ -13,11 +56,7 @@ class _$Image extends Image {
   factory _$Image([void Function(ImageBuilder) updates]) =>
       (new ImageBuilder()..update(updates)).build();
 
-  _$Image._({this.imageInsightsToken}) : super._() {
-    if (imageInsightsToken == null) {
-      throw new BuiltValueNullFieldError('Image', 'imageInsightsToken');
-    }
-  }
+  _$Image._({this.imageInsightsToken}) : super._();
 
   @override
   Image rebuild(void Function(ImageBuilder) updates) =>
