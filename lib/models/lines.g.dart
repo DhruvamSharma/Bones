@@ -6,6 +6,72 @@ part of 'lines.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Lines> _$linesSerializer = new _$LinesSerializer();
+
+class _$LinesSerializer implements StructuredSerializer<Lines> {
+  @override
+  final Iterable<Type> types = const [Lines, _$Lines];
+  @override
+  final String wireName = 'Lines';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Lines object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.text != null) {
+      result
+        ..add('text')
+        ..add(serializers.serialize(object.text,
+            specifiedType: const FullType(String)));
+    }
+    if (object.boundingBox != null) {
+      result
+        ..add('boundingBox')
+        ..add(serializers.serialize(object.boundingBox,
+            specifiedType: const FullType(BoundingBox)));
+    }
+    if (object.words != null) {
+      result
+        ..add('words')
+        ..add(serializers.serialize(object.words,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Words)])));
+    }
+    return result;
+  }
+
+  @override
+  Lines deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new LinesBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'text':
+          result.text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'boundingBox':
+          result.boundingBox.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BoundingBox)) as BoundingBox);
+          break;
+        case 'words':
+          result.words.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Words)]))
+              as BuiltList<dynamic>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Lines extends Lines {
   @override
   final String text;
@@ -17,17 +83,7 @@ class _$Lines extends Lines {
   factory _$Lines([void Function(LinesBuilder) updates]) =>
       (new LinesBuilder()..update(updates)).build();
 
-  _$Lines._({this.text, this.boundingBox, this.words}) : super._() {
-    if (text == null) {
-      throw new BuiltValueNullFieldError('Lines', 'text');
-    }
-    if (boundingBox == null) {
-      throw new BuiltValueNullFieldError('Lines', 'boundingBox');
-    }
-    if (words == null) {
-      throw new BuiltValueNullFieldError('Lines', 'words');
-    }
-  }
+  _$Lines._({this.text, this.boundingBox, this.words}) : super._();
 
   @override
   Lines rebuild(void Function(LinesBuilder) updates) =>
@@ -110,15 +166,15 @@ class LinesBuilder implements Builder<Lines, LinesBuilder> {
       _$result = _$v ??
           new _$Lines._(
               text: text,
-              boundingBox: boundingBox.build(),
-              words: words.build());
+              boundingBox: _boundingBox?.build(),
+              words: _words?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'boundingBox';
-        boundingBox.build();
+        _boundingBox?.build();
         _$failedField = 'words';
-        words.build();
+        _words?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Lines', _$failedField, e.toString());

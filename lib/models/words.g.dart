@@ -6,6 +6,59 @@ part of 'words.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Words> _$wordsSerializer = new _$WordsSerializer();
+
+class _$WordsSerializer implements StructuredSerializer<Words> {
+  @override
+  final Iterable<Type> types = const [Words, _$Words];
+  @override
+  final String wireName = 'Words';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Words object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.text != null) {
+      result
+        ..add('text')
+        ..add(serializers.serialize(object.text,
+            specifiedType: const FullType(String)));
+    }
+    if (object.boundingBox != null) {
+      result
+        ..add('boundingBox')
+        ..add(serializers.serialize(object.boundingBox,
+            specifiedType: const FullType(BoundingBox)));
+    }
+    return result;
+  }
+
+  @override
+  Words deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new WordsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'text':
+          result.text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'boundingBox':
+          result.boundingBox.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BoundingBox)) as BoundingBox);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Words extends Words {
   @override
   final String text;
@@ -15,14 +68,7 @@ class _$Words extends Words {
   factory _$Words([void Function(WordsBuilder) updates]) =>
       (new WordsBuilder()..update(updates)).build();
 
-  _$Words._({this.text, this.boundingBox}) : super._() {
-    if (text == null) {
-      throw new BuiltValueNullFieldError('Words', 'text');
-    }
-    if (boundingBox == null) {
-      throw new BuiltValueNullFieldError('Words', 'boundingBox');
-    }
-  }
+  _$Words._({this.text, this.boundingBox}) : super._();
 
   @override
   Words rebuild(void Function(WordsBuilder) updates) =>
@@ -95,12 +141,12 @@ class WordsBuilder implements Builder<Words, WordsBuilder> {
     _$Words _$result;
     try {
       _$result =
-          _$v ?? new _$Words._(text: text, boundingBox: boundingBox.build());
+          _$v ?? new _$Words._(text: text, boundingBox: _boundingBox?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'boundingBox';
-        boundingBox.build();
+        _boundingBox?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Words', _$failedField, e.toString());

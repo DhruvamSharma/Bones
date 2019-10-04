@@ -6,6 +6,59 @@ part of 'bottom_right.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<BottomRight> _$bottomRightSerializer = new _$BottomRightSerializer();
+
+class _$BottomRightSerializer implements StructuredSerializer<BottomRight> {
+  @override
+  final Iterable<Type> types = const [BottomRight, _$BottomRight];
+  @override
+  final String wireName = 'BottomRight';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, BottomRight object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.x != null) {
+      result
+        ..add('x')
+        ..add(serializers.serialize(object.x,
+            specifiedType: const FullType(double)));
+    }
+    if (object.y != null) {
+      result
+        ..add('y')
+        ..add(serializers.serialize(object.y,
+            specifiedType: const FullType(double)));
+    }
+    return result;
+  }
+
+  @override
+  BottomRight deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new BottomRightBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'x':
+          result.x = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'y':
+          result.y = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$BottomRight extends BottomRight {
   @override
   final double x;
@@ -15,14 +68,7 @@ class _$BottomRight extends BottomRight {
   factory _$BottomRight([void Function(BottomRightBuilder) updates]) =>
       (new BottomRightBuilder()..update(updates)).build();
 
-  _$BottomRight._({this.x, this.y}) : super._() {
-    if (x == null) {
-      throw new BuiltValueNullFieldError('BottomRight', 'x');
-    }
-    if (y == null) {
-      throw new BuiltValueNullFieldError('BottomRight', 'y');
-    }
-  }
+  _$BottomRight._({this.x, this.y}) : super._();
 
   @override
   BottomRight rebuild(void Function(BottomRightBuilder) updates) =>

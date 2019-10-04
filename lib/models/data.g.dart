@@ -6,9 +6,108 @@ part of 'data.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Data> _$dataSerializer = new _$DataSerializer();
+
+class _$DataSerializer implements StructuredSerializer<Data> {
+  @override
+  final Iterable<Type> types = const [Data, _$Data];
+  @override
+  final String wireName = 'Data';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Data object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.value != null) {
+      result
+        ..add('value')
+        ..add(serializers.serialize(object.value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Value)])));
+    }
+    if (object.currentOffset != null) {
+      result
+        ..add('currentOffset')
+        ..add(serializers.serialize(object.currentOffset,
+            specifiedType: const FullType(int)));
+    }
+    if (object.nextOffset != null) {
+      result
+        ..add('nextOffset')
+        ..add(serializers.serialize(object.nextOffset,
+            specifiedType: const FullType(int)));
+    }
+    if (object.totalEstimatedMatches != null) {
+      result
+        ..add('totalEstimatedMatches')
+        ..add(serializers.serialize(object.totalEstimatedMatches,
+            specifiedType: const FullType(int)));
+    }
+    if (object.regions != null) {
+      result
+        ..add('regions')
+        ..add(serializers.serialize(object.regions,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Regions)])));
+    }
+    if (object.boundingBox != null) {
+      result
+        ..add('boundingBox')
+        ..add(serializers.serialize(object.boundingBox,
+            specifiedType: const FullType(BoundingBox)));
+    }
+    return result;
+  }
+
+  @override
+  Data deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new DataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'value':
+          result.value.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Value)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'currentOffset':
+          result.currentOffset = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'nextOffset':
+          result.nextOffset = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'totalEstimatedMatches':
+          result.totalEstimatedMatches = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'regions':
+          result.regions.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Regions)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'boundingBox':
+          result.boundingBox.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BoundingBox)) as BoundingBox);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Data extends Data {
   @override
-  final List<Value> value;
+  final BuiltList<Value> value;
   @override
   final int currentOffset;
   @override
@@ -16,7 +115,7 @@ class _$Data extends Data {
   @override
   final int totalEstimatedMatches;
   @override
-  final List<Regions> regions;
+  final BuiltList<Regions> regions;
   @override
   final BoundingBox boundingBox;
 
@@ -30,26 +129,7 @@ class _$Data extends Data {
       this.totalEstimatedMatches,
       this.regions,
       this.boundingBox})
-      : super._() {
-    if (value == null) {
-      throw new BuiltValueNullFieldError('Data', 'value');
-    }
-    if (currentOffset == null) {
-      throw new BuiltValueNullFieldError('Data', 'currentOffset');
-    }
-    if (nextOffset == null) {
-      throw new BuiltValueNullFieldError('Data', 'nextOffset');
-    }
-    if (totalEstimatedMatches == null) {
-      throw new BuiltValueNullFieldError('Data', 'totalEstimatedMatches');
-    }
-    if (regions == null) {
-      throw new BuiltValueNullFieldError('Data', 'regions');
-    }
-    if (boundingBox == null) {
-      throw new BuiltValueNullFieldError('Data', 'boundingBox');
-    }
-  }
+      : super._();
 
   @override
   Data rebuild(void Function(DataBuilder) updates) =>
@@ -98,9 +178,9 @@ class _$Data extends Data {
 class DataBuilder implements Builder<Data, DataBuilder> {
   _$Data _$v;
 
-  List<Value> _value;
-  List<Value> get value => _$this._value;
-  set value(List<Value> value) => _$this._value = value;
+  ListBuilder<Value> _value;
+  ListBuilder<Value> get value => _$this._value ??= new ListBuilder<Value>();
+  set value(ListBuilder<Value> value) => _$this._value = value;
 
   int _currentOffset;
   int get currentOffset => _$this._currentOffset;
@@ -115,9 +195,10 @@ class DataBuilder implements Builder<Data, DataBuilder> {
   set totalEstimatedMatches(int totalEstimatedMatches) =>
       _$this._totalEstimatedMatches = totalEstimatedMatches;
 
-  List<Regions> _regions;
-  List<Regions> get regions => _$this._regions;
-  set regions(List<Regions> regions) => _$this._regions = regions;
+  ListBuilder<Regions> _regions;
+  ListBuilder<Regions> get regions =>
+      _$this._regions ??= new ListBuilder<Regions>();
+  set regions(ListBuilder<Regions> regions) => _$this._regions = regions;
 
   BoundingBoxBuilder _boundingBox;
   BoundingBoxBuilder get boundingBox =>
@@ -129,11 +210,11 @@ class DataBuilder implements Builder<Data, DataBuilder> {
 
   DataBuilder get _$this {
     if (_$v != null) {
-      _value = _$v.value;
+      _value = _$v.value?.toBuilder();
       _currentOffset = _$v.currentOffset;
       _nextOffset = _$v.nextOffset;
       _totalEstimatedMatches = _$v.totalEstimatedMatches;
-      _regions = _$v.regions;
+      _regions = _$v.regions?.toBuilder();
       _boundingBox = _$v.boundingBox?.toBuilder();
       _$v = null;
     }
@@ -159,17 +240,22 @@ class DataBuilder implements Builder<Data, DataBuilder> {
     try {
       _$result = _$v ??
           new _$Data._(
-              value: value,
+              value: _value?.build(),
               currentOffset: currentOffset,
               nextOffset: nextOffset,
               totalEstimatedMatches: totalEstimatedMatches,
-              regions: regions,
-              boundingBox: boundingBox.build());
+              regions: _regions?.build(),
+              boundingBox: _boundingBox?.build());
     } catch (_) {
       String _$failedField;
       try {
+        _$failedField = 'value';
+        _value?.build();
+
+        _$failedField = 'regions';
+        _regions?.build();
         _$failedField = 'boundingBox';
-        boundingBox.build();
+        _boundingBox?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Data', _$failedField, e.toString());

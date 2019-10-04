@@ -19,21 +19,32 @@ class _$BingApiResponseSerializer
   @override
   Iterable<Object> serialize(Serializers serializers, BingApiResponse object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'sType',
-      serializers.serialize(object.sType,
-          specifiedType: const FullType(String)),
-      'instrumentation',
-      serializers.serialize(object.instrumentation,
-          specifiedType: const FullType(Instrumentation)),
-      'tags',
-      serializers.serialize(object.tags,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(Tags)])),
-      'image',
-      serializers.serialize(object.image, specifiedType: const FullType(Image)),
-    ];
-
+    final result = <Object>[];
+    if (object.sType != null) {
+      result
+        ..add('_type')
+        ..add(serializers.serialize(object.sType,
+            specifiedType: const FullType(String)));
+    }
+    if (object.instrumentation != null) {
+      result
+        ..add('instrumentation')
+        ..add(serializers.serialize(object.instrumentation,
+            specifiedType: const FullType(Instrumentation)));
+    }
+    if (object.tags != null) {
+      result
+        ..add('tags')
+        ..add(serializers.serialize(object.tags,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Tags)])));
+    }
+    if (object.image != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(object.image,
+            specifiedType: const FullType(Image)));
+    }
     return result;
   }
 
@@ -49,7 +60,7 @@ class _$BingApiResponseSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'sType':
+        case '_type':
           result.sType = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
@@ -89,20 +100,7 @@ class _$BingApiResponse extends BingApiResponse {
       (new BingApiResponseBuilder()..update(updates)).build();
 
   _$BingApiResponse._({this.sType, this.instrumentation, this.tags, this.image})
-      : super._() {
-    if (sType == null) {
-      throw new BuiltValueNullFieldError('BingApiResponse', 'sType');
-    }
-    if (instrumentation == null) {
-      throw new BuiltValueNullFieldError('BingApiResponse', 'instrumentation');
-    }
-    if (tags == null) {
-      throw new BuiltValueNullFieldError('BingApiResponse', 'tags');
-    }
-    if (image == null) {
-      throw new BuiltValueNullFieldError('BingApiResponse', 'image');
-    }
-  }
+      : super._();
 
   @override
   BingApiResponse rebuild(void Function(BingApiResponseBuilder) updates) =>
@@ -196,18 +194,18 @@ class BingApiResponseBuilder
       _$result = _$v ??
           new _$BingApiResponse._(
               sType: sType,
-              instrumentation: instrumentation.build(),
-              tags: tags.build(),
-              image: image.build());
+              instrumentation: _instrumentation?.build(),
+              tags: _tags?.build(),
+              image: _image?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'instrumentation';
-        instrumentation.build();
+        _instrumentation?.build();
         _$failedField = 'tags';
-        tags.build();
+        _tags?.build();
         _$failedField = 'image';
-        image.build();
+        _image?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'BingApiResponse', _$failedField, e.toString());

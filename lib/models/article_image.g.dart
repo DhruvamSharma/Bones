@@ -6,6 +6,149 @@ part of 'article_image.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Image> _$imageSerializer = new _$ImageSerializer();
+
+class _$ImageSerializer implements StructuredSerializer<Image> {
+  @override
+  final Iterable<Type> types = const [Image, _$Image];
+  @override
+  final String wireName = 'Image';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Image object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.webSearchUrl != null) {
+      result
+        ..add('webSearchUrl')
+        ..add(serializers.serialize(object.webSearchUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.webSearchUrlPingSuffix != null) {
+      result
+        ..add('webSearchUrlPingSuffix')
+        ..add(serializers.serialize(object.webSearchUrlPingSuffix,
+            specifiedType: const FullType(String)));
+    }
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.isFamilyFriendly != null) {
+      result
+        ..add('isFamilyFriendly')
+        ..add(serializers.serialize(object.isFamilyFriendly,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.contentSize != null) {
+      result
+        ..add('contentSize')
+        ..add(serializers.serialize(object.contentSize,
+            specifiedType: const FullType(String)));
+    }
+    if (object.encodingFormat != null) {
+      result
+        ..add('encodingFormat')
+        ..add(serializers.serialize(object.encodingFormat,
+            specifiedType: const FullType(String)));
+    }
+    if (object.hostPageDisplayUrl != null) {
+      result
+        ..add('hostPageDisplayUrl')
+        ..add(serializers.serialize(object.hostPageDisplayUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.width != null) {
+      result
+        ..add('width')
+        ..add(serializers.serialize(object.width,
+            specifiedType: const FullType(int)));
+    }
+    if (object.height != null) {
+      result
+        ..add('height')
+        ..add(serializers.serialize(object.height,
+            specifiedType: const FullType(int)));
+    }
+    if (object.thumbnail != null) {
+      result
+        ..add('thumbnail')
+        ..add(serializers.serialize(object.thumbnail,
+            specifiedType: const FullType(Thumbnail)));
+    }
+    if (object.visualWords != null) {
+      result
+        ..add('visualWords')
+        ..add(serializers.serialize(object.visualWords,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  Image deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ImageBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'webSearchUrl':
+          result.webSearchUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'webSearchUrlPingSuffix':
+          result.webSearchUrlPingSuffix = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'isFamilyFriendly':
+          result.isFamilyFriendly = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'contentSize':
+          result.contentSize = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'encodingFormat':
+          result.encodingFormat = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'hostPageDisplayUrl':
+          result.hostPageDisplayUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'width':
+          result.width = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'thumbnail':
+          result.thumbnail.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Thumbnail)) as Thumbnail);
+          break;
+        case 'visualWords':
+          result.visualWords = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Image extends Image {
   @override
   final String webSearchUrl;
@@ -45,41 +188,7 @@ class _$Image extends Image {
       this.height,
       this.thumbnail,
       this.visualWords})
-      : super._() {
-    if (webSearchUrl == null) {
-      throw new BuiltValueNullFieldError('Image', 'webSearchUrl');
-    }
-    if (webSearchUrlPingSuffix == null) {
-      throw new BuiltValueNullFieldError('Image', 'webSearchUrlPingSuffix');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Image', 'name');
-    }
-    if (isFamilyFriendly == null) {
-      throw new BuiltValueNullFieldError('Image', 'isFamilyFriendly');
-    }
-    if (contentSize == null) {
-      throw new BuiltValueNullFieldError('Image', 'contentSize');
-    }
-    if (encodingFormat == null) {
-      throw new BuiltValueNullFieldError('Image', 'encodingFormat');
-    }
-    if (hostPageDisplayUrl == null) {
-      throw new BuiltValueNullFieldError('Image', 'hostPageDisplayUrl');
-    }
-    if (width == null) {
-      throw new BuiltValueNullFieldError('Image', 'width');
-    }
-    if (height == null) {
-      throw new BuiltValueNullFieldError('Image', 'height');
-    }
-    if (thumbnail == null) {
-      throw new BuiltValueNullFieldError('Image', 'thumbnail');
-    }
-    if (visualWords == null) {
-      throw new BuiltValueNullFieldError('Image', 'visualWords');
-    }
-  }
+      : super._();
 
   @override
   Image rebuild(void Function(ImageBuilder) updates) =>
@@ -247,13 +356,13 @@ class ImageBuilder implements Builder<Image, ImageBuilder> {
               hostPageDisplayUrl: hostPageDisplayUrl,
               width: width,
               height: height,
-              thumbnail: thumbnail.build(),
+              thumbnail: _thumbnail?.build(),
               visualWords: visualWords);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'thumbnail';
-        thumbnail.build();
+        _thumbnail?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Image', _$failedField, e.toString());

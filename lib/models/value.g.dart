@@ -6,6 +6,290 @@ part of 'value.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Value> _$valueSerializer = new _$ValueSerializer();
+
+class _$ValueSerializer implements StructuredSerializer<Value> {
+  @override
+  final Iterable<Type> types = const [Value, _$Value];
+  @override
+  final String wireName = 'Value';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Value object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.webSearchUrl != null) {
+      result
+        ..add('webSearchUrl')
+        ..add(serializers.serialize(object.webSearchUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.webSearchUrlPingSuffix != null) {
+      result
+        ..add('webSearchUrlPingSuffix')
+        ..add(serializers.serialize(object.webSearchUrlPingSuffix,
+            specifiedType: const FullType(String)));
+    }
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.thumbnailUrl != null) {
+      result
+        ..add('thumbnailUrl')
+        ..add(serializers.serialize(object.thumbnailUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.datePublished != null) {
+      result
+        ..add('datePublished')
+        ..add(serializers.serialize(object.datePublished,
+            specifiedType: const FullType(String)));
+    }
+    if (object.isFamilyFriendly != null) {
+      result
+        ..add('isFamilyFriendly')
+        ..add(serializers.serialize(object.isFamilyFriendly,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.contentUrl != null) {
+      result
+        ..add('contentUrl')
+        ..add(serializers.serialize(object.contentUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.contentUrlPingSuffix != null) {
+      result
+        ..add('contentUrlPingSuffix')
+        ..add(serializers.serialize(object.contentUrlPingSuffix,
+            specifiedType: const FullType(String)));
+    }
+    if (object.hostPageUrl != null) {
+      result
+        ..add('hostPageUrl')
+        ..add(serializers.serialize(object.hostPageUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.hostPageUrlPingSuffix != null) {
+      result
+        ..add('hostPageUrlPingSuffix')
+        ..add(serializers.serialize(object.hostPageUrlPingSuffix,
+            specifiedType: const FullType(String)));
+    }
+    if (object.contentSize != null) {
+      result
+        ..add('contentSize')
+        ..add(serializers.serialize(object.contentSize,
+            specifiedType: const FullType(String)));
+    }
+    if (object.encodingFormat != null) {
+      result
+        ..add('encodingFormat')
+        ..add(serializers.serialize(object.encodingFormat,
+            specifiedType: const FullType(String)));
+    }
+    if (object.hostPageDisplayUrl != null) {
+      result
+        ..add('hostPageDisplayUrl')
+        ..add(serializers.serialize(object.hostPageDisplayUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.width != null) {
+      result
+        ..add('width')
+        ..add(serializers.serialize(object.width,
+            specifiedType: const FullType(int)));
+    }
+    if (object.height != null) {
+      result
+        ..add('height')
+        ..add(serializers.serialize(object.height,
+            specifiedType: const FullType(int)));
+    }
+    if (object.hostPageFavIconUrl != null) {
+      result
+        ..add('hostPageFavIconUrl')
+        ..add(serializers.serialize(object.hostPageFavIconUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.hostPageDomainFriendlyName != null) {
+      result
+        ..add('hostPageDomainFriendlyName')
+        ..add(serializers.serialize(object.hostPageDomainFriendlyName,
+            specifiedType: const FullType(String)));
+    }
+    if (object.thumbnail != null) {
+      result
+        ..add('thumbnail')
+        ..add(serializers.serialize(object.thumbnail,
+            specifiedType: const FullType(Thumbnail)));
+    }
+    if (object.imageInsightsToken != null) {
+      result
+        ..add('imageInsightsToken')
+        ..add(serializers.serialize(object.imageInsightsToken,
+            specifiedType: const FullType(String)));
+    }
+    if (object.insightsMetadata != null) {
+      result
+        ..add('insightsMetadata')
+        ..add(serializers.serialize(object.insightsMetadata,
+            specifiedType: const FullType(InsightsMetadata)));
+    }
+    if (object.imageId != null) {
+      result
+        ..add('imageId')
+        ..add(serializers.serialize(object.imageId,
+            specifiedType: const FullType(String)));
+    }
+    if (object.accentColor != null) {
+      result
+        ..add('accentColor')
+        ..add(serializers.serialize(object.accentColor,
+            specifiedType: const FullType(String)));
+    }
+    if (object.creativeCommons != null) {
+      result
+        ..add('creativeCommons')
+        ..add(serializers.serialize(object.creativeCommons,
+            specifiedType: const FullType(String)));
+    }
+    if (object.text != null) {
+      result
+        ..add('text')
+        ..add(serializers.serialize(object.text,
+            specifiedType: const FullType(String)));
+    }
+    if (object.displayText != null) {
+      result
+        ..add('displayText')
+        ..add(serializers.serialize(object.displayText,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  Value deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ValueBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'webSearchUrl':
+          result.webSearchUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'webSearchUrlPingSuffix':
+          result.webSearchUrlPingSuffix = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'thumbnailUrl':
+          result.thumbnailUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'datePublished':
+          result.datePublished = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'isFamilyFriendly':
+          result.isFamilyFriendly = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'contentUrl':
+          result.contentUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'contentUrlPingSuffix':
+          result.contentUrlPingSuffix = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'hostPageUrl':
+          result.hostPageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'hostPageUrlPingSuffix':
+          result.hostPageUrlPingSuffix = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'contentSize':
+          result.contentSize = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'encodingFormat':
+          result.encodingFormat = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'hostPageDisplayUrl':
+          result.hostPageDisplayUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'width':
+          result.width = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'hostPageFavIconUrl':
+          result.hostPageFavIconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'hostPageDomainFriendlyName':
+          result.hostPageDomainFriendlyName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'thumbnail':
+          result.thumbnail.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Thumbnail)) as Thumbnail);
+          break;
+        case 'imageInsightsToken':
+          result.imageInsightsToken = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'insightsMetadata':
+          result.insightsMetadata.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(InsightsMetadata))
+              as InsightsMetadata);
+          break;
+        case 'imageId':
+          result.imageId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'accentColor':
+          result.accentColor = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'creativeCommons':
+          result.creativeCommons = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'text':
+          result.text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'displayText':
+          result.displayText = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Value extends Value {
   @override
   final String webSearchUrl;
@@ -87,83 +371,7 @@ class _$Value extends Value {
       this.creativeCommons,
       this.text,
       this.displayText})
-      : super._() {
-    if (webSearchUrl == null) {
-      throw new BuiltValueNullFieldError('Value', 'webSearchUrl');
-    }
-    if (webSearchUrlPingSuffix == null) {
-      throw new BuiltValueNullFieldError('Value', 'webSearchUrlPingSuffix');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Value', 'name');
-    }
-    if (thumbnailUrl == null) {
-      throw new BuiltValueNullFieldError('Value', 'thumbnailUrl');
-    }
-    if (datePublished == null) {
-      throw new BuiltValueNullFieldError('Value', 'datePublished');
-    }
-    if (isFamilyFriendly == null) {
-      throw new BuiltValueNullFieldError('Value', 'isFamilyFriendly');
-    }
-    if (contentUrl == null) {
-      throw new BuiltValueNullFieldError('Value', 'contentUrl');
-    }
-    if (contentUrlPingSuffix == null) {
-      throw new BuiltValueNullFieldError('Value', 'contentUrlPingSuffix');
-    }
-    if (hostPageUrl == null) {
-      throw new BuiltValueNullFieldError('Value', 'hostPageUrl');
-    }
-    if (hostPageUrlPingSuffix == null) {
-      throw new BuiltValueNullFieldError('Value', 'hostPageUrlPingSuffix');
-    }
-    if (contentSize == null) {
-      throw new BuiltValueNullFieldError('Value', 'contentSize');
-    }
-    if (encodingFormat == null) {
-      throw new BuiltValueNullFieldError('Value', 'encodingFormat');
-    }
-    if (hostPageDisplayUrl == null) {
-      throw new BuiltValueNullFieldError('Value', 'hostPageDisplayUrl');
-    }
-    if (width == null) {
-      throw new BuiltValueNullFieldError('Value', 'width');
-    }
-    if (height == null) {
-      throw new BuiltValueNullFieldError('Value', 'height');
-    }
-    if (hostPageFavIconUrl == null) {
-      throw new BuiltValueNullFieldError('Value', 'hostPageFavIconUrl');
-    }
-    if (hostPageDomainFriendlyName == null) {
-      throw new BuiltValueNullFieldError('Value', 'hostPageDomainFriendlyName');
-    }
-    if (thumbnail == null) {
-      throw new BuiltValueNullFieldError('Value', 'thumbnail');
-    }
-    if (imageInsightsToken == null) {
-      throw new BuiltValueNullFieldError('Value', 'imageInsightsToken');
-    }
-    if (insightsMetadata == null) {
-      throw new BuiltValueNullFieldError('Value', 'insightsMetadata');
-    }
-    if (imageId == null) {
-      throw new BuiltValueNullFieldError('Value', 'imageId');
-    }
-    if (accentColor == null) {
-      throw new BuiltValueNullFieldError('Value', 'accentColor');
-    }
-    if (creativeCommons == null) {
-      throw new BuiltValueNullFieldError('Value', 'creativeCommons');
-    }
-    if (text == null) {
-      throw new BuiltValueNullFieldError('Value', 'text');
-    }
-    if (displayText == null) {
-      throw new BuiltValueNullFieldError('Value', 'displayText');
-    }
-  }
+      : super._();
 
   @override
   Value rebuild(void Function(ValueBuilder) updates) =>
@@ -464,9 +672,9 @@ class ValueBuilder implements Builder<Value, ValueBuilder> {
               height: height,
               hostPageFavIconUrl: hostPageFavIconUrl,
               hostPageDomainFriendlyName: hostPageDomainFriendlyName,
-              thumbnail: thumbnail.build(),
+              thumbnail: _thumbnail?.build(),
               imageInsightsToken: imageInsightsToken,
-              insightsMetadata: insightsMetadata.build(),
+              insightsMetadata: _insightsMetadata?.build(),
               imageId: imageId,
               accentColor: accentColor,
               creativeCommons: creativeCommons,
@@ -476,10 +684,10 @@ class ValueBuilder implements Builder<Value, ValueBuilder> {
       String _$failedField;
       try {
         _$failedField = 'thumbnail';
-        thumbnail.build();
+        _thumbnail?.build();
 
         _$failedField = 'insightsMetadata';
-        insightsMetadata.build();
+        _insightsMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Value', _$failedField, e.toString());

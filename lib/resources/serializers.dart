@@ -72,4 +72,21 @@ part 'serializers.g.dart';
   Words
 ])
 final Serializers serializers = _$serializers;
-Serializers standardSerializers = (serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
+Serializers standardSerializers = (serializers.toBuilder()
+..add(Actions.serializer)
+  ..add(article_image.Image.serializer)
+  ..add(BingApiResponse.serializer)
+  ..add(BottomRight.serializer)
+  ..add(BottomLeft.serializer)
+  ..add(Actions.serializer)
+  ..add(Tags.serializer)
+  ..addBuilderFactory(
+      const FullType(BuiltList, const [const FullType(Actions)]),
+      () => ListBuilder<Actions>()
+  )
+  ..addBuilderFactory(
+      const FullType(BuiltList, const [const FullType(Tags)]),
+          () => ListBuilder<Tags>()
+  )
+  ..addPlugin(StandardJsonPlugin()))
+    .build();

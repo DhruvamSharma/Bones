@@ -6,6 +6,59 @@ part of 'top_right.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<TopRight> _$topRightSerializer = new _$TopRightSerializer();
+
+class _$TopRightSerializer implements StructuredSerializer<TopRight> {
+  @override
+  final Iterable<Type> types = const [TopRight, _$TopRight];
+  @override
+  final String wireName = 'TopRight';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, TopRight object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.x != null) {
+      result
+        ..add('x')
+        ..add(serializers.serialize(object.x,
+            specifiedType: const FullType(double)));
+    }
+    if (object.y != null) {
+      result
+        ..add('y')
+        ..add(serializers.serialize(object.y,
+            specifiedType: const FullType(double)));
+    }
+    return result;
+  }
+
+  @override
+  TopRight deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new TopRightBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'x':
+          result.x = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'y':
+          result.y = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$TopRight extends TopRight {
   @override
   final double x;
@@ -15,14 +68,7 @@ class _$TopRight extends TopRight {
   factory _$TopRight([void Function(TopRightBuilder) updates]) =>
       (new TopRightBuilder()..update(updates)).build();
 
-  _$TopRight._({this.x, this.y}) : super._() {
-    if (x == null) {
-      throw new BuiltValueNullFieldError('TopRight', 'x');
-    }
-    if (y == null) {
-      throw new BuiltValueNullFieldError('TopRight', 'y');
-    }
-  }
+  _$TopRight._({this.x, this.y}) : super._();
 
   @override
   TopRight rebuild(void Function(TopRightBuilder) updates) =>

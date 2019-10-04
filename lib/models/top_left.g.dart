@@ -6,6 +6,59 @@ part of 'top_left.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<TopLeft> _$topLeftSerializer = new _$TopLeftSerializer();
+
+class _$TopLeftSerializer implements StructuredSerializer<TopLeft> {
+  @override
+  final Iterable<Type> types = const [TopLeft, _$TopLeft];
+  @override
+  final String wireName = 'TopLeft';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, TopLeft object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.x != null) {
+      result
+        ..add('x')
+        ..add(serializers.serialize(object.x,
+            specifiedType: const FullType(double)));
+    }
+    if (object.y != null) {
+      result
+        ..add('y')
+        ..add(serializers.serialize(object.y,
+            specifiedType: const FullType(double)));
+    }
+    return result;
+  }
+
+  @override
+  TopLeft deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new TopLeftBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'x':
+          result.x = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'y':
+          result.y = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$TopLeft extends TopLeft {
   @override
   final double x;
@@ -15,14 +68,7 @@ class _$TopLeft extends TopLeft {
   factory _$TopLeft([void Function(TopLeftBuilder) updates]) =>
       (new TopLeftBuilder()..update(updates)).build();
 
-  _$TopLeft._({this.x, this.y}) : super._() {
-    if (x == null) {
-      throw new BuiltValueNullFieldError('TopLeft', 'x');
-    }
-    if (y == null) {
-      throw new BuiltValueNullFieldError('TopLeft', 'y');
-    }
-  }
+  _$TopLeft._({this.x, this.y}) : super._();
 
   @override
   TopLeft rebuild(void Function(TopLeftBuilder) updates) =>

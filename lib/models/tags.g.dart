@@ -6,6 +6,95 @@ part of 'tags.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Tags> _$tagsSerializer = new _$TagsSerializer();
+
+class _$TagsSerializer implements StructuredSerializer<Tags> {
+  @override
+  final Iterable<Type> types = const [Tags, _$Tags];
+  @override
+  final String wireName = 'Tags';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Tags object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.displayName != null) {
+      result
+        ..add('displayName')
+        ..add(serializers.serialize(object.displayName,
+            specifiedType: const FullType(String)));
+    }
+    if (object.actions != null) {
+      result
+        ..add('actions')
+        ..add(serializers.serialize(object.actions,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Actions)])));
+    }
+    if (object.image != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(object.image,
+            specifiedType: const FullType(Image)));
+    }
+    if (object.boundingBox != null) {
+      result
+        ..add('boundingBox')
+        ..add(serializers.serialize(object.boundingBox,
+            specifiedType: const FullType(BoundingBox)));
+    }
+    if (object.sources != null) {
+      result
+        ..add('sources')
+        ..add(serializers.serialize(object.sources,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(UsefulActions.Actions)])));
+    }
+    return result;
+  }
+
+  @override
+  Tags deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new TagsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'displayName':
+          result.displayName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'actions':
+          result.actions.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Actions)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'image':
+          result.image.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Image)) as Image);
+          break;
+        case 'boundingBox':
+          result.boundingBox.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BoundingBox)) as BoundingBox);
+          break;
+        case 'sources':
+          result.sources.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(UsefulActions.Actions)]))
+              as BuiltList<dynamic>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Tags extends Tags {
   @override
   final String displayName;
@@ -27,23 +116,7 @@ class _$Tags extends Tags {
       this.image,
       this.boundingBox,
       this.sources})
-      : super._() {
-    if (displayName == null) {
-      throw new BuiltValueNullFieldError('Tags', 'displayName');
-    }
-    if (actions == null) {
-      throw new BuiltValueNullFieldError('Tags', 'actions');
-    }
-    if (image == null) {
-      throw new BuiltValueNullFieldError('Tags', 'image');
-    }
-    if (boundingBox == null) {
-      throw new BuiltValueNullFieldError('Tags', 'boundingBox');
-    }
-    if (sources == null) {
-      throw new BuiltValueNullFieldError('Tags', 'sources');
-    }
-  }
+      : super._();
 
   @override
   Tags rebuild(void Function(TagsBuilder) updates) =>
@@ -147,21 +220,21 @@ class TagsBuilder implements Builder<Tags, TagsBuilder> {
       _$result = _$v ??
           new _$Tags._(
               displayName: displayName,
-              actions: actions.build(),
-              image: image.build(),
-              boundingBox: boundingBox.build(),
-              sources: sources.build());
+              actions: _actions?.build(),
+              image: _image?.build(),
+              boundingBox: _boundingBox?.build(),
+              sources: _sources?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'actions';
-        actions.build();
+        _actions?.build();
         _$failedField = 'image';
-        image.build();
+        _image?.build();
         _$failedField = 'boundingBox';
-        boundingBox.build();
+        _boundingBox?.build();
         _$failedField = 'sources';
-        sources.build();
+        _sources?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Tags', _$failedField, e.toString());

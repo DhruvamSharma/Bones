@@ -6,6 +6,89 @@ part of 'useful_actions.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Actions> _$actionsSerializer = new _$ActionsSerializer();
+
+class _$ActionsSerializer implements StructuredSerializer<Actions> {
+  @override
+  final Iterable<Type> types = const [Actions, _$Actions];
+  @override
+  final String wireName = 'Actions';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Actions object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.sType != null) {
+      result
+        ..add('sType')
+        ..add(serializers.serialize(object.sType,
+            specifiedType: const FullType(String)));
+    }
+    if (object.actionType != null) {
+      result
+        ..add('actionType')
+        ..add(serializers.serialize(object.actionType,
+            specifiedType: const FullType(String)));
+    }
+    if (object.webSearchUrl != null) {
+      result
+        ..add('webSearchUrl')
+        ..add(serializers.serialize(object.webSearchUrl,
+            specifiedType: const FullType(String)));
+    }
+    if (object.webSearchUrlPingSuffix != null) {
+      result
+        ..add('webSearchUrlPingSuffix')
+        ..add(serializers.serialize(object.webSearchUrlPingSuffix,
+            specifiedType: const FullType(String)));
+    }
+    if (object.displayName != null) {
+      result
+        ..add('displayName')
+        ..add(serializers.serialize(object.displayName,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  Actions deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ActionsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'sType':
+          result.sType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'actionType':
+          result.actionType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'webSearchUrl':
+          result.webSearchUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'webSearchUrlPingSuffix':
+          result.webSearchUrlPingSuffix = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'displayName':
+          result.displayName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Actions extends Actions {
   @override
   final String sType;
@@ -27,23 +110,7 @@ class _$Actions extends Actions {
       this.webSearchUrl,
       this.webSearchUrlPingSuffix,
       this.displayName})
-      : super._() {
-    if (sType == null) {
-      throw new BuiltValueNullFieldError('Actions', 'sType');
-    }
-    if (actionType == null) {
-      throw new BuiltValueNullFieldError('Actions', 'actionType');
-    }
-    if (webSearchUrl == null) {
-      throw new BuiltValueNullFieldError('Actions', 'webSearchUrl');
-    }
-    if (webSearchUrlPingSuffix == null) {
-      throw new BuiltValueNullFieldError('Actions', 'webSearchUrlPingSuffix');
-    }
-    if (displayName == null) {
-      throw new BuiltValueNullFieldError('Actions', 'displayName');
-    }
-  }
+      : super._();
 
   @override
   Actions rebuild(void Function(ActionsBuilder) updates) =>
