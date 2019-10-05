@@ -1,5 +1,6 @@
 import 'package:bones/resources/json_parser.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bones/resources/api_caller.dart';
 
 void main() {
   test("parse bing api response", () {
@@ -4313,8 +4314,13 @@ void main() {
         "imageInsightsToken": "bcid_S0Iz.sHGTnEAEw*ccid_QjP+wcZO"
     }
 }""";
-
-
-    expect(parseJson(jsonString), "ImageKnowledge");
+    expect(parseJson(jsonString).sType, "ImageKnowledge");
   });
+
+  test("making https call", () async {
+    final fileUrl = '';
+    await apiCaller.fetchDogType(fileUrl);
+  });
+
+
 }

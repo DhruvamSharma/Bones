@@ -3,11 +3,11 @@ import 'package:built_value/serializer.dart';
 
 part 'useful_actions.g.dart';
 
-abstract class Actions implements Built<Actions, ActionsBuilder> {
-  static Serializer<Actions> get serializer => _$actionsSerializer;
+abstract class CustomActions implements Built<CustomActions, CustomActionsBuilder> {
+  static Serializer<CustomActions> get serializer => _$customActionsSerializer;
 
   @nullable
-  String get sType;
+  String get serviceUrl;
   @nullable
   String get actionType;
   @nullable
@@ -16,6 +16,6 @@ abstract class Actions implements Built<Actions, ActionsBuilder> {
   String get webSearchUrlPingSuffix;
   @nullable
   String get displayName;
-  Actions._();
-  factory Actions([void Function(ActionsBuilder) updates]) = _$Actions;
+  CustomActions._();
+  factory CustomActions([void Function(CustomActionsBuilder) updates]) = _$CustomActions;
 }

@@ -6,29 +6,30 @@ class ClassifierCaller {
   final String _baseUrl = 'https://animalimageapi.cognitiveservices.azure.com/bing/v7.0/images/visualsearch';
   final String _subscriptionKey = '22f2f040f8d44613bfec773da8aacd26';
 
-  Future<dynamic> fetchDogType(String url) async {
+  const ClassifierCaller();
+
+  Future<dynamic> fetchDogType(String fileUrl) async {
     final Map<String, String> headers = {
       'Ocp-Apim-Subscription-Key': _subscriptionKey,
       'X-BingApis-SDK': 'true',
       'Content-Type': 'multipart/form-data'
     };
-    var responseData;
+    http.ByteStream responseData;
 
     var request = new http.MultipartRequest("POST", Uri.parse(_baseUrl));
     request.files.add(await http.MultipartFile.fromPath(
       'image',
-      cameraBloc.filePath
+      fileUrl
     ));
     request.headers.addAll(headers);
     request.send().then((response) {
-      if (response.statusCode == 200) responseData = response.stream;
+      if (response.statusCode == 200) {
+        responseData = response.stream;
+      }
     });
 
     return responseData;
   }
-
-  String _encodeUrlComponents(String fileUrl) {
-    String encodedImageUrl = Uri.encodeComponent(fileUrl);
-    return '$_baseUrl?token=$_subscriptionKey&url=$encodedImageUrl';
-  }
 }
+
+const apiCaller = ClassifierCaller();

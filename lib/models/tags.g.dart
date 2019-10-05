@@ -45,10 +45,10 @@ class _$TagsSerializer implements StructuredSerializer<Tags> {
     }
     if (object.sources != null) {
       result
-        ..add('sources')
+        ..add('actions')
         ..add(serializers.serialize(object.sources,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(UsefulActions.Actions)])));
+            specifiedType: const FullType(BuiltList,
+                const [const FullType(UsefulActions.CustomActions)])));
     }
     return result;
   }
@@ -82,11 +82,11 @@ class _$TagsSerializer implements StructuredSerializer<Tags> {
           result.boundingBox.replace(serializers.deserialize(value,
               specifiedType: const FullType(BoundingBox)) as BoundingBox);
           break;
-        case 'sources':
+        case 'actions':
           result.sources.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(UsefulActions.Actions)]))
-              as BuiltList<dynamic>);
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(UsefulActions.CustomActions)
+              ])) as BuiltList<dynamic>);
           break;
       }
     }
@@ -105,7 +105,7 @@ class _$Tags extends Tags {
   @override
   final BoundingBox boundingBox;
   @override
-  final BuiltList<UsefulActions.Actions> sources;
+  final BuiltList<UsefulActions.CustomActions> sources;
 
   factory _$Tags([void Function(TagsBuilder) updates]) =>
       (new TagsBuilder()..update(updates)).build();
@@ -180,10 +180,10 @@ class TagsBuilder implements Builder<Tags, TagsBuilder> {
   set boundingBox(BoundingBoxBuilder boundingBox) =>
       _$this._boundingBox = boundingBox;
 
-  ListBuilder<UsefulActions.Actions> _sources;
-  ListBuilder<UsefulActions.Actions> get sources =>
-      _$this._sources ??= new ListBuilder<UsefulActions.Actions>();
-  set sources(ListBuilder<UsefulActions.Actions> sources) =>
+  ListBuilder<UsefulActions.CustomActions> _sources;
+  ListBuilder<UsefulActions.CustomActions> get sources =>
+      _$this._sources ??= new ListBuilder<UsefulActions.CustomActions>();
+  set sources(ListBuilder<UsefulActions.CustomActions> sources) =>
       _$this._sources = sources;
 
   TagsBuilder();

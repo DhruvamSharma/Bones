@@ -66,7 +66,7 @@ part 'serializers.g.dart';
   Regions,
   Tags,
   Thumbnail,
-  useful_actions.Actions,
+  useful_actions.CustomActions,
   Value,
   VideoObject,
   Words
@@ -80,6 +80,7 @@ Serializers standardSerializers = (serializers.toBuilder()
   ..add(BottomLeft.serializer)
   ..add(Actions.serializer)
   ..add(Tags.serializer)
+  ..add(useful_actions.CustomActions.serializer)
   ..addBuilderFactory(
       const FullType(BuiltList, const [const FullType(Actions)]),
       () => ListBuilder<Actions>()
@@ -87,6 +88,10 @@ Serializers standardSerializers = (serializers.toBuilder()
   ..addBuilderFactory(
       const FullType(BuiltList, const [const FullType(Tags)]),
           () => ListBuilder<Tags>()
+  )
+  ..addBuilderFactory(
+      const FullType(BuiltList, const [const FullType(useful_actions.CustomActions)]),
+          () => ListBuilder<useful_actions.CustomActions>()
   )
   ..addPlugin(StandardJsonPlugin()))
     .build();

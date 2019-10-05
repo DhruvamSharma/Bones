@@ -80,6 +80,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               style: headlineStyle,
             ),
             Text('Find what is lost'),
+            FlatButton(onPressed: getFilePath, child: Text('Fetch')),
+            Text(_filePath == null?'search':_filePath),
           ],
         ),
       ),
