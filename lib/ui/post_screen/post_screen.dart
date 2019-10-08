@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bones/models/bing_api_response.dart';
 import 'package:bones/resources/loader.dart';
 import 'package:bones/ui/camera_screen/camera_bloc.dart';
 import 'package:bones/ui/home_screen/bloc.dart';
@@ -105,11 +106,11 @@ class _DogImageResultWidgetState extends State<DogImageResultWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<String>(
+    return StreamBuilder<BingApiResponse>(
         stream: classifierBloc.classifierStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Center(child: Text(snapshot.data));
+            return Center(child: Text(snapshot.data.tags.asList().length.toString()));
           } else {
             return Center(child: Loader());
           }

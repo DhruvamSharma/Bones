@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bones/ui/home_screen/bloc.dart';
 import 'package:bones/resources/loader.dart';
 import 'package:bones/ui/camera_screen/capture_button.dart';
@@ -6,6 +8,7 @@ import 'package:bones/ui/home_screen/process_sheet.dart';
 import 'package:bones/ui/post_screen/post_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -58,15 +61,61 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
               return GestureDetector(
                 onDoubleTap: _clickPicture,
                 child: Stack(
-                  fit: StackFit.loose,
+                  fit: StackFit.passthrough,
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
-                    CameraPreview(_controller),
+                    cameraBloc.filePath == null
+                        ? CameraPreview(_controller)
+                        : Image.file(File(cameraBloc.filePath), height: MediaQuery.of(context).size.height,),
                     AppBar(
                       automaticallyImplyLeading: true,
                       elevation: 0,
                       backgroundColor: Colors.transparent,
                     ),
+                    cameraBloc.filePath == null
+                        ? Container()
+                        : Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 48.0, top: 48.0),
+                              child: Container(
+                                constraints: BoxConstraints(
+                                    maxHeight:
+                                        MediaQuery.of(context).size.height / 13,
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width / 2),
+                                decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(32),
+                                        bottomLeft: Radius.circular(32))),
+                                alignment: Alignment.bottomRight,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: IconButton(
+                                        icon: Icon(Icons.refresh),
+                                        iconSize: 32,
+                                        onPressed: _refreshCameraState,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: IconButton(
+                                        icon: Icon(Icons.arrow_forward),
+                                        iconSize: 32,
+                                        onPressed: _onClick,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               );
@@ -102,7 +151,25 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
     }
   }
 
+  _refreshCameraState() {
+    // refresh the screen with camera preview and remove the image, if any.
+    // also, null the cameraBloc filePath variable
+    setState(() {
+      cameraBloc.filePath = null;
+      _initializeControllerFuture =
+          _initCameraController(classifierBloc.cameraList.first);
+    });
+  }
+
+  void _onSwitchCamera() {
+    selectedCameraIdx =
+    selectedCameraIdx < cameras.length - 1 ? selectedCameraIdx + 1 : 0;
+    CameraDescription selectedCamera = cameras[selectedCameraIdx];
+    _initCameraController(selectedCamera);
+  }
+
   _clickPicture() async {
+
     // Take the Picture in a try / catch block. If anything goes wrong,
     // catch the error.
     try {
@@ -122,12 +189,12 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
       setState(() {
         cameraBloc.filePath = path;
       });
-      _onClick();
     } catch (e) {
       // If an error occurs, log the error to the console.
       print(e);
     }
   }
+
 
   Future _initCameraController(CameraDescription cameraDescription) async {
     if (_controller != null) {
