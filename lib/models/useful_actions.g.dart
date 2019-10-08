@@ -6,22 +6,23 @@ part of 'useful_actions.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Actions> _$actionsSerializer = new _$ActionsSerializer();
+Serializer<CustomActions> _$customActionsSerializer =
+    new _$CustomActionsSerializer();
 
-class _$ActionsSerializer implements StructuredSerializer<Actions> {
+class _$CustomActionsSerializer implements StructuredSerializer<CustomActions> {
   @override
-  final Iterable<Type> types = const [Actions, _$Actions];
+  final Iterable<Type> types = const [CustomActions, _$CustomActions];
   @override
-  final String wireName = 'Actions';
+  final String wireName = 'CustomActions';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Actions object,
+  Iterable<Object> serialize(Serializers serializers, CustomActions object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.sType != null) {
+    if (object.serviceUrl != null) {
       result
-        ..add('sType')
-        ..add(serializers.serialize(object.sType,
+        ..add('serviceUrl')
+        ..add(serializers.serialize(object.serviceUrl,
             specifiedType: const FullType(String)));
     }
     if (object.actionType != null) {
@@ -52,9 +53,10 @@ class _$ActionsSerializer implements StructuredSerializer<Actions> {
   }
 
   @override
-  Actions deserialize(Serializers serializers, Iterable<Object> serialized,
+  CustomActions deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ActionsBuilder();
+    final result = new CustomActionsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -62,8 +64,8 @@ class _$ActionsSerializer implements StructuredSerializer<Actions> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'sType':
-          result.sType = serializers.deserialize(value,
+        case 'serviceUrl':
+          result.serviceUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'actionType':
@@ -89,9 +91,9 @@ class _$ActionsSerializer implements StructuredSerializer<Actions> {
   }
 }
 
-class _$Actions extends Actions {
+class _$CustomActions extends CustomActions {
   @override
-  final String sType;
+  final String serviceUrl;
   @override
   final String actionType;
   @override
@@ -101,11 +103,11 @@ class _$Actions extends Actions {
   @override
   final String displayName;
 
-  factory _$Actions([void Function(ActionsBuilder) updates]) =>
-      (new ActionsBuilder()..update(updates)).build();
+  factory _$CustomActions([void Function(CustomActionsBuilder) updates]) =>
+      (new CustomActionsBuilder()..update(updates)).build();
 
-  _$Actions._(
-      {this.sType,
+  _$CustomActions._(
+      {this.serviceUrl,
       this.actionType,
       this.webSearchUrl,
       this.webSearchUrlPingSuffix,
@@ -113,17 +115,17 @@ class _$Actions extends Actions {
       : super._();
 
   @override
-  Actions rebuild(void Function(ActionsBuilder) updates) =>
+  CustomActions rebuild(void Function(CustomActionsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ActionsBuilder toBuilder() => new ActionsBuilder()..replace(this);
+  CustomActionsBuilder toBuilder() => new CustomActionsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Actions &&
-        sType == other.sType &&
+    return other is CustomActions &&
+        serviceUrl == other.serviceUrl &&
         actionType == other.actionType &&
         webSearchUrl == other.webSearchUrl &&
         webSearchUrlPingSuffix == other.webSearchUrlPingSuffix &&
@@ -134,7 +136,7 @@ class _$Actions extends Actions {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, sType.hashCode), actionType.hashCode),
+            $jc($jc($jc(0, serviceUrl.hashCode), actionType.hashCode),
                 webSearchUrl.hashCode),
             webSearchUrlPingSuffix.hashCode),
         displayName.hashCode));
@@ -142,8 +144,8 @@ class _$Actions extends Actions {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Actions')
-          ..add('sType', sType)
+    return (newBuiltValueToStringHelper('CustomActions')
+          ..add('serviceUrl', serviceUrl)
           ..add('actionType', actionType)
           ..add('webSearchUrl', webSearchUrl)
           ..add('webSearchUrlPingSuffix', webSearchUrlPingSuffix)
@@ -152,12 +154,13 @@ class _$Actions extends Actions {
   }
 }
 
-class ActionsBuilder implements Builder<Actions, ActionsBuilder> {
-  _$Actions _$v;
+class CustomActionsBuilder
+    implements Builder<CustomActions, CustomActionsBuilder> {
+  _$CustomActions _$v;
 
-  String _sType;
-  String get sType => _$this._sType;
-  set sType(String sType) => _$this._sType = sType;
+  String _serviceUrl;
+  String get serviceUrl => _$this._serviceUrl;
+  set serviceUrl(String serviceUrl) => _$this._serviceUrl = serviceUrl;
 
   String _actionType;
   String get actionType => _$this._actionType;
@@ -176,11 +179,11 @@ class ActionsBuilder implements Builder<Actions, ActionsBuilder> {
   String get displayName => _$this._displayName;
   set displayName(String displayName) => _$this._displayName = displayName;
 
-  ActionsBuilder();
+  CustomActionsBuilder();
 
-  ActionsBuilder get _$this {
+  CustomActionsBuilder get _$this {
     if (_$v != null) {
-      _sType = _$v.sType;
+      _serviceUrl = _$v.serviceUrl;
       _actionType = _$v.actionType;
       _webSearchUrl = _$v.webSearchUrl;
       _webSearchUrlPingSuffix = _$v.webSearchUrlPingSuffix;
@@ -191,23 +194,23 @@ class ActionsBuilder implements Builder<Actions, ActionsBuilder> {
   }
 
   @override
-  void replace(Actions other) {
+  void replace(CustomActions other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$Actions;
+    _$v = other as _$CustomActions;
   }
 
   @override
-  void update(void Function(ActionsBuilder) updates) {
+  void update(void Function(CustomActionsBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$Actions build() {
+  _$CustomActions build() {
     final _$result = _$v ??
-        new _$Actions._(
-            sType: sType,
+        new _$CustomActions._(
+            serviceUrl: serviceUrl,
             actionType: actionType,
             webSearchUrl: webSearchUrl,
             webSearchUrlPingSuffix: webSearchUrlPingSuffix,

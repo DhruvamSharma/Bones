@@ -5,6 +5,7 @@ import 'package:bones/resources/serializers.dart';
 
 BingApiResponse parseJson(String jsonString) {
   final parsed = json.decode(jsonString);
+  print(parsed);
   BingApiResponse bingApiResponse = standardSerializers.deserializeWith(BingApiResponse.serializer, parsed);
   return bingApiResponse;
 }

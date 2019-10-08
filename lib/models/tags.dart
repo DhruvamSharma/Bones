@@ -14,13 +14,15 @@ abstract class Tags implements Built<Tags, TagsBuilder> {
   @nullable
   String get displayName;
   @nullable
+  @BuiltValueField(wireName: 'actions')
   BuiltList<Actions> get actions;
   @nullable
   Image get image;
   @nullable
   BoundingBox get boundingBox;
   @nullable
-  BuiltList<UsefulActions.Actions> get sources;
+  @BuiltValueField(wireName: 'actions')
+  BuiltList<UsefulActions.CustomActions> get sources;
 
   Tags._();
   factory Tags([void Function(TagsBuilder) updates]) = _$Tags;

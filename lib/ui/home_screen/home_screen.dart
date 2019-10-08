@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:bones/resources/global_styles.dart';
+import 'package:bones/ui/camera_screen/camera_bloc.dart';
 import 'package:bones/ui/home_screen/enter_exit_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:bones/ui/home_screen/process_sheet.dart';
@@ -87,8 +90,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   void _navigateToCamera() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return CameraApp();
-    }));
+    Navigator.push(context, EnterExitRoute(enterPage: CameraApp(), exitPage: widget));
+    cameraBloc.filePath = null;
   }
 }

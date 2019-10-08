@@ -8,12 +8,12 @@ part of serializers;
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Actions.serializer)
-      ..add(Actions.serializer)
       ..add(BingApiResponse.serializer)
       ..add(BottomLeft.serializer)
       ..add(BottomRight.serializer)
       ..add(BoundingBox.serializer)
       ..add(Creator.serializer)
+      ..add(useful_actions.CustomActions.serializer)
       ..add(Data.serializer)
       ..add(DisplayRectangle.serializer)
       ..add(Image.serializer)
@@ -35,8 +35,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(Actions)]),
           () => new ListBuilder<Actions>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Actions)]),
-          () => new ListBuilder<Actions>())
+          const FullType(BuiltList, const [const FullType(useful_actions.CustomActions)]),
+          () => new ListBuilder<useful_actions.CustomActions>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Lines)]),
           () => new ListBuilder<Lines>())

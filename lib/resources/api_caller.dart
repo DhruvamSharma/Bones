@@ -1,34 +1,48 @@
-import 'dart:async';
-
-import 'package:bones/ui/camera_screen/camera_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+
+import 'package:bones/models/bing_api_response.dart';
+import 'package:bones/resources/json_parser.dart';
+
 class ClassifierCaller {
-  final String _baseUrl = 'https://animalimageapi.cognitiveservices.azure.com/bing/v7.0/images/visualsearch';
+  final String _baseUrl =
+      'https://animalimageapi.cognitiveservices.azure.com/bing/v7.0/images/visualsearch';
   final String _subscriptionKey = '22f2f040f8d44613bfec773da8aacd26';
 
-  Future<dynamic> fetchDogType(String url) async {
+  const ClassifierCaller();
+
+  Future<BingApiResponse> fetchDogType(String fileUrl) async {
+    // create header object
     final Map<String, String> headers = {
       'Ocp-Apim-Subscription-Key': _subscriptionKey,
       'X-BingApis-SDK': 'true',
       'Content-Type': 'multipart/form-data'
     };
-    var responseData;
-
+    // make a post with multipart file request
     var request = new http.MultipartRequest("POST", Uri.parse(_baseUrl));
-    request.files.add(await http.MultipartFile.fromPath(
+    // create a multi-part file
+    http.MultipartFile multipartFile = http.MultipartFile.fromString(
       'image',
-      cameraBloc.filePath
-    ));
+      fileUrl,
+      contentType: MediaType('image', 'jpeg'),
+    );
+    // add an image file for uploading
+    request.files.add(multipartFile);
+    // add headers to the request
     request.headers.addAll(headers);
-    request.send().then((response) {
-      if (response.statusCode == 200) responseData = response.stream;
-    });
+    // make the request and await for response
+    var response = await request.send();
+    BingApiResponse bingApiResponse;
 
-    return responseData;
-  }
+    if (response.statusCode == 200) {
+      // parse the response into the PODO (Plain Old Dart Object)
+      bingApiResponse = parseJson(await response.stream.bytesToString());
+    } else {
+      // do something
+    }
 
-  String _encodeUrlComponents(String fileUrl) {
-    String encodedImageUrl = Uri.encodeComponent(fileUrl);
-    return '$_baseUrl?token=$_subscriptionKey&url=$encodedImageUrl';
+    return bingApiResponse;
   }
 }
+
+const apiCaller = ClassifierCaller();

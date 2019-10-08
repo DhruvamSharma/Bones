@@ -1,5 +1,7 @@
+import 'package:bones/models/bing_api_response.dart';
 import 'package:bones/resources/json_parser.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bones/resources/api_caller.dart';
 
 void main() {
   test("parse bing api response", () {
@@ -4313,8 +4315,18 @@ void main() {
         "imageInsightsToken": "bcid_S0Iz.sHGTnEAEw*ccid_QjP+wcZO"
     }
 }""";
-
-
-    expect(parseJson(jsonString), "ImageKnowledge");
+    expect(parseJson(jsonString).sType, "ImageKnowledge");
   });
+
+  test("making https call", () async {
+    final fileUrl = '/Users/dhruvamsharma/Library/Developer/CoreSimulator/Devices/1A564D94-7132-41DD-83D8-29F90ED58748/data/Containers/Data/Application/AFF80E32-6FE3-4628-84F6-3B0FE02F7D9E/tmp/7927F6CA-6BCB-4088-844F-85E62D9BB8B8.jpeg';
+    BingApiResponse response = await apiCaller.fetchDogType((fileUrl));
+    if (response == null) {
+      fail('test failed with null response');
+    } else {
+      expect(response.sType, 'ImageKnowledge');
+    }
+  });
+
+
 }
