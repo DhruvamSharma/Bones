@@ -1,13 +1,16 @@
 import 'dart:io';
 
 import 'package:bones/resources/global_styles.dart';
+import 'package:bones/resources/loader.dart';
 import 'package:bones/ui/camera_screen/camera_bloc.dart';
+import 'package:bones/ui/camera_screen/image_capture.dart' as prefix0;
 import 'package:bones/ui/home_screen/enter_exit_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:bones/ui/home_screen/process_sheet.dart';
 import 'package:flutter/services.dart';
 import 'package:bones/ui/camera_screen/image_capture.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -83,9 +86,33 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               style: headlineStyle,
             ),
             Text('Find what is lost'),
+
+            StreamBuilder<QuerySnapshot>(
+              stream: Firestore.instance.collection('').snapshots(),
+              builder: (context, requestSnapshot) {
+                if (requestSnapshot.connectionState == ConnectionState.waiting) {
+                  return Loader();
+                } else if (requestSnapshot.hasData) {
+                  return _buildRequestList(requestSnapshot.data.documents);
+                } else {
+                  return prefix0.ErrorWidget();
+                }
+              },
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildRequestList(List<DocumentSnapshot> snapshot) {
+    return ListView.builder(
+      itemCount: snapshot.length,
+      itemBuilder: (context, item) {
+        return ListTile(
+          title: Text('New Item is here!'),
+        );
+      },
     );
   }
 

@@ -32,7 +32,9 @@ dependencies:
   file_picker:
   firebase_core:
   firebase_analytics: ^5.0.1
-  firebase_storage:
+  firebase_storage: any
+  cloud_firestore:
+
   flare_flutter: any
   built_collection: '>=2.0.0 <5.0.0'
   built_value: '>=5.5.5 <7.0.0'
